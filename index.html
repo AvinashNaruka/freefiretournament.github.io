@@ -3,627 +3,160 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>FreeFire Tournament Manager — Accounts & Manual UTR Verify</title>
+<title>FreeFire Tournament — Local Demo (No Firebase)</title>
 <style>
-  :root{--bg:#0f1724;--card:#0b1220;--accent:#ff9f1c;--muted:#94a3b8;--success:#16a34a}
-  body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;color:#e6eef8;background:linear-gradient(180deg,#071129 0%, #071834 100%);margin:0;padding:18px}
-  .wrap{max-width:980px;margin:0 auto}
-  header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
-  h1{font-size:20px;margin:0}
-  .top-actions{display:flex;gap:8px;align-items:center}
-  .btn{background:var(--accent);color:#031221;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
-  .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#dbeafe;padding:8px 10px;border-radius:8px;cursor:pointer}
-  .card{background:rgba(255,255,255,0.02);padding:14px;border-radius:10px;margin-bottom:12px}
-  label{display:block;color:var(--muted);font-size:13px;margin-bottom:6px}
-  input,select,textarea{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#e6eef8;margin-bottom:8px}
-  .grid{display:grid;grid-template-columns:1fr 360px;gap:14px}
-  table{width:100%;border-collapse:collapse;margin-top:8px}
-  th,td{padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);text-align:left;font-size:13px}
-  .muted{color:var(--muted);font-size:13px}
-  .hidden{display:none}
-  .small{font-size:12px;padding:6px 8px}
-  .status-verified{color:var(--success);font-weight:700}
-  img.proof{max-width:100px;border-radius:6px;border:1px solid rgba(255,255,255,0.04)}
-  footer{color:var(--muted);font-size:13px;margin-top:10px;text-align:center}
-  .danger{background:#7f1d1d;color:#ffdede}
-  @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+:root{--bg:#0b1220;--card:#0f1724;--accent:#ff9f1c;--muted:#94a3b8;--ok:#10b981}
+body{margin:0;font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,#071027 0%,#031022 100%);color:#e6eef8}
+.container{max-width:1100px;margin:18px auto;padding:18px}
+.header{display:flex;justify-content:space-between;align-items:center;gap:12px}
+h1{margin:0;font-size:20px}
+.muted{color:var(--muted);font-size:13px}
+.top-actions{display:flex;gap:8px;align-items:center}
+.btn{background:var(--accent);color:#031022;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-weight:700}
+.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:#e6eef8;padding:8px 10px;border-radius:8px;cursor:pointer}
+.card{background:rgba(255,255,255,0.02);padding:14px;border-radius:10px;margin-top:14px}
+.grid{display:grid;grid-template-columns:1fr 380px;gap:14px;margin-top:14px}
+label{display:block;color:var(--muted);font-size:13px;margin-bottom:6px}
+input,select,textarea{width:100%;padding:8px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:#e6eef8;margin-bottom:8px}
+table{width:100%;border-collapse:collapse;margin-top:8px}
+th,td{padding:8px;border-bottom:1px solid rgba(255,255,255,0.03);text-align:left;font-size:13px}
+.small{font-size:13px;padding:6px 8px}
+.hidden{display:none}
+.proof{max-width:120px;border-radius:8px;border:1px solid rgba(255,255,255,0.04)}
+.status-ver{color:var(--ok);font-weight:700}
+.danger{background:#7f1d1d;color:#ffdede}
+.footer{margin-top:12px;color:var(--muted);font-size:13px;text-align:center}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div>
-        <h1>FreeFire Tournament Manager</h1>
-        <div class="muted">Signup → Login → Join tournaments → Upload payment proof (UTR) → Admin verify</div>
-      </div>
-      <div class="top-actions">
-        <div id="userBadge" class="muted">Not logged in</div>
-        <button id="btnShowLogin" class="btn small">Login / Signup</button>
-        <button id="btnLogout" class="btn-ghost small hidden">Logout</button>
-      </div>
-    </header>
-
-    <main class="grid">
-      <!-- left: main app -->
-      <section>
-        <!-- auth area (toggle) -->
-        <div id="authCard" class="card">
-          <div id="loginView">
-            <h3>Login</h3>
-            <label>Phone (used as username)</label>
-            <input id="loginPhone" placeholder="91XXXXXXXXXX">
-            <label>Password</label>
-            <input id="loginPass" type="password" placeholder="password">
-            <div style="display:flex;gap:8px">
-              <button id="doLogin" class="btn">Login</button>
-              <button id="showSignup" class="btn-ghost">Signup</button>
-            </div>
-            <p class="muted" style="margin-top:8px">Admin credentials (demo): <strong>avinashnaruka08 / Avinash@031105</strong></p>
-          </div>
-
-          <div id="signupView" class="hidden">
-            <h3>Signup (one-time)</h3>
-            <label>Full name</label>
-            <input id="suName" placeholder="Avinash Singh">
-            <label>Phone (unique)</label>
-            <input id="suPhone" placeholder="91XXXXXXXXXX">
-            <label>Free Fire ID</label>
-            <input id="suFF" placeholder="FreeFire custom ID">
-            <label>Password</label>
-            <input id="suPass" type="password" placeholder="choose a strong password">
-            <div style="display:flex;gap:8px">
-              <button id="doSignup" class="btn">Create account</button>
-              <button id="showLogin" class="btn-ghost">Back to login</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- tournaments list & create (for admin) -->
-        <div class="card" id="tournamentsCard">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <h3>Tournaments</h3>
-            <div>
-              <button id="btnCreateT" class="btn-ghost small">Create tournament</button>
-            </div>
-          </div>
-          <div id="tList" class="muted">Loading tournaments...</div>
-        </div>
-
-        <!-- create/edit tournament panel (hidden until admin or creator) -->
-        <div class="card hidden" id="createPanel">
-          <h3 id="createTitle">Create tournament</h3>
-          <label>Title</label>
-          <input id="ctName" placeholder="Sunday Clash">
-          <label>Date & Time</label>
-          <input id="ctDate" type="datetime-local">
-          <label>Entry fee (₹)</label>
-          <input id="ctFee" type="number" value="20">
-          <label>Seats / Slots</label>
-          <input id="ctSlots" type="number" value="50">
-          <div style="display:flex;gap:8px">
-            <button id="saveTournament" class="btn">Save</button>
-            <button id="cancelCreate" class="btn-ghost">Cancel</button>
-          </div>
-        </div>
-
-        <!-- selected tournament & registration form -->
-        <div class="card hidden" id="selectedCard">
-          <h3 id="selTitle">Tournament —</h3>
-          <div class="muted" id="selInfo">—</div>
-          <hr>
-          <div id="registerBox">
-            <h4>Register / Pay</h4>
-            <label>Free Fire ID</label>
-            <input id="regFF" placeholder="">
-            <label>Phone (auto from profile)</label>
-            <input id="regPhone" placeholder="" readonly>
-            <label>Amount (auto)</label>
-            <input id="regAmount" readonly>
-            <label>UTR / Txn Ref</label>
-            <input id="regUTR" placeholder="Enter UTR or transaction reference">
-            <label>Upload payment screenshot (JPG/PNG)</label>
-            <input id="regProof" type="file" accept="image/*">
-            <div style="display:flex;gap:8px;margin-top:8px">
-              <button id="doRegister" class="btn">Submit registration</button>
-              <button id="doRegisterFree" class="btn-ghost">Register without payment</button>
-            </div>
-            <p class="muted">Payment will be verified by admin manually using UTR & screenshot.</p>
-          </div>
-
-          <div id="regsForUser" class="hidden" style="margin-top:10px">
-            <h4>Your registrations for this tournament</h4>
-            <div id="yourRegs" class="muted"></div>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- right: admin panel / details -->
-      <aside>
-        <div class="card">
-          <h3>Details</h3>
-          <div id="detailsBox" class="muted">Login to create/join tournaments.</div>
-        </div>
-
-        <div class="card hidden" id="adminPanel">
-          <h3>Admin Panel</h3>
-          <div id="adminTList" class="muted">Select a tournament to view participants.</div>
-          <div style="margin-top:8px;display:flex;gap:8px">
-            <button id="exportAll" class="btn-ghost small">Export selected CSV</button>
-            <button id="refreshAdmin" class="btn-ghost small">Refresh</button>
-          </div>
-        </div>
-
-        <div class="card">
-          <h3>Quick UPI</h3>
-          <div class="muted">Mobile: UPI deep links will open app. Desktop: QR shown on register panel.</div>
-          <p class="muted" style="font-size:13px;margin-top:6px">PhonePe: <code>7976726014@axl</code><br>GPay: <code>avinashnaruka89@okicici</code></p>
-        </div>
-      </aside>
-    </main>
-
-    <footer>
-      Note: This is a demo client-side app. For production use a server for payment verification & image storage.
-    </footer>
+<div class="container">
+  <div class="header">
+    <div>
+      <h1>FreeFire Tournament Manager</h1>
+      <div class="muted">Local demo — no backend. Save as index.html & upload to GitHub Pages.</div>
+    </div>
+    <div class="top-actions">
+      <div id="userBadge" class="muted">Not logged in</div>
+      <button id="btnShowAuth" class="btn small">Login / Signup</button>
+      <button id="btnLogout" class="btn-ghost small hidden">Logout</button>
+    </div>
   </div>
 
+  <div class="grid">
+    <!-- left -->
+    <section>
+      <div id="authCard" class="card">
+        <!-- login -->
+        <div id="loginView">
+          <h3>Login</h3>
+          <label>Phone or Email</label>
+          <input id="loginId" placeholder="Phone (91...) or email">
+          <label>Password</label>
+          <input id="loginPass" type="password" placeholder="password">
+          <div style="display:flex;gap:8px">
+            <button id="doLogin" class="btn">Login</button>
+            <button id="showSignup" class="btn-ghost">Signup</button>
+          </div>
+          <p class="muted" style="margin-top:8px">Admin: username <strong>avinashnaruka08</strong> , password <strong>Avinash@031105</strong></p>
+        </div>
+
+        <!-- signup -->
+        <div id="signupView" class="hidden">
+          <h3>Signup (one account per phone)</h3>
+          <label>Full name</label><input id="suName" placeholder="Your name">
+          <label>Phone (unique)</label><input id="suPhone" placeholder="91XXXXXXXXXX">
+          <label>Email (optional)</label><input id="suEmail" placeholder="email@example.com">
+          <label>Free Fire ID</label><input id="suFF" placeholder="Free Fire custom ID">
+          <label>Password</label><input id="suPass" type="password" placeholder="choose password">
+          <div style="display:flex;gap:8px">
+            <button id="doSignup" class="btn">Create account</button>
+            <button id="showLogin" class="btn-ghost">Back to login</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="tournamentsCard" class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <h3>Tournaments</h3>
+          <div>
+            <button id="btnCreateT" class="btn-ghost small">Create tournament</button>
+          </div>
+        </div>
+        <div id="tList" class="muted">No tournaments yet.</div>
+      </div>
+
+      <div id="createPanel" class="card hidden">
+        <h3 id="createTitle">Create tournament</h3>
+        <label>Title</label><input id="ctName" placeholder="Ex: Sunday Clash">
+        <label>Date & time</label><input id="ctDate" type="datetime-local">
+        <label>Entry fee (₹)</label><input id="ctFee" type="number" value="20">
+        <label>Seats / Slots</label><input id="ctSlots" type="number" value="50">
+        <div style="display:flex;gap:8px">
+          <button id="saveTournament" class="btn">Save</button>
+          <button id="cancelCreate" class="btn-ghost">Cancel</button>
+        </div>
+      </div>
+
+      <div id="selectedCard" class="card hidden">
+        <h3 id="selTitle">Tournament —</h3>
+        <div class="muted" id="selInfo">—</div>
+        <hr>
+        <div id="registerBox">
+          <h4>Register / Upload payment proof</h4>
+          <label>Free Fire ID</label><input id="regFF" placeholder="">
+          <label>Phone (from profile)</label><input id="regPhone" readonly>
+          <label>Amount (auto)</label><input id="regAmount" readonly>
+          <label>UTR / Txn Ref</label><input id="regUTR" placeholder="Enter UTR">
+          <label>Upload payment screenshot (JPG/PNG)</label><input id="regProof" type="file" accept="image/*">
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button id="doRegister" class="btn">Submit registration</button>
+            <button id="doRegisterFree" class="btn-ghost">Register without payment</button>
+          </div>
+          <p class="muted">Mobile: pay button will open UPI app. Desktop: scan QR shown below when you open tournament.</p>
+
+          <div style="margin-top:10px">
+            <div id="upiButtons"></div>
+            <div id="qrBox" style="margin-top:8px"></div>
+          </div>
+        </div>
+
+        <div id="yourRegs" style="margin-top:10px"></div>
+      </div>
+    </section>
+
+    <!-- right -->
+    <aside>
+      <div class="card">
+        <h3>Details</h3>
+        <div id="detailsBox" class="muted">Login to create/join tournaments.</div>
+      </div>
+
+      <div id="adminPanel" class="card hidden">
+        <h3>Admin Panel</h3>
+        <div id="adminTList" class="muted">Select tournament to view participants.</div>
+        <div style="display:flex;gap:8px;margin-top:8px">
+          <button id="exportSelected" class="btn-ghost small">Export CSV (selected)</button>
+          <button id="refreshAdmin" class="btn-ghost small">Refresh</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Support</h3>
+        <div class="muted">Call / WhatsApp for help</div>
+        <div style="margin-top:8px">
+          <a id="callSupport" href="tel:7976726014" class="btn-ghost small">Call 7976726014</a>
+          <a id="waSupport" href="https://wa.me/919776726014" target="_blank" class="btn-ghost small">WhatsApp</a>
+        </div>
+        <h4 style="margin-top:10px">Quick UPI</h4>
+        <div class="muted">PhonePe: <code>7976726014@axl</code><br>GPay: <code>avinashnaruka89@okicici</code></div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="footer">Note: This is a client-side app — images stored in browser storage (localStorage). For production use server/storage.</div>
+</div>
+
 <script>
-/* ===== Storage keys and demo admin ===== */
-const KEY_USERS = 'ff_demo_users_v3';        // stores user objects by phone
-const KEY_TOURN = 'ff_demo_tournaments_v3';  // array of tournaments
-const KEY_REGS   = 'ff_demo_registrations_v3'; // array of registrations
-
-const DEMO_ADMIN = { username: 'avinashnaruka08', password: 'Avinash@031105', displayName:'Admin' };
-
-/* ===== App state ===== */
-let currentUser = null;         // user object when logged in
-let tournaments = [];           // loaded from storage
-let registrations = [];         // loaded from storage
-let editingTournamentId = null; // for edit flow
-let selectedTournamentId = null;
-
-/* ===== Helpers ===== */
-function loadAll(){
-  const u = JSON.parse(localStorage.getItem(KEY_USERS) || '{}');
-  if(!u || Object.keys(u).length===0){
-    // seed demo admin as a user? we keep admin separate (username-based)
-    localStorage.setItem(KEY_USERS, JSON.stringify({}));
-  }
-  tournaments = JSON.parse(localStorage.getItem(KEY_TOURN) || '[]');
-  registrations = JSON.parse(localStorage.getItem(KEY_REGS) || '[]');
-}
-function saveAll(){
-  localStorage.setItem(KEY_TOURN, JSON.stringify(tournaments));
-  localStorage.setItem(KEY_REGS, JSON.stringify(registrations));
-}
-function usersObj(){ return JSON.parse(localStorage.getItem(KEY_USERS) || '{}'); }
-function setUsersObj(o){ localStorage.setItem(KEY_USERS, JSON.stringify(o)); }
-
-function uid(prefix='id'){ return prefix + '_' + Date.now() + '_' + Math.floor(Math.random()*9000); }
-function fmtDate(dt){ return new Date(dt).toLocaleString(); }
-
-/* ===== UI elements ===== */
-const userBadge = document.getElementById('userBadge');
-const btnShowLogin = document.getElementById('btnShowLogin');
-const btnLogout = document.getElementById('btnLogout');
-
-const authCard = document.getElementById('authCard');
-const loginView = document.getElementById('loginView');
-const signupView = document.getElementById('signupView');
-
-const loginPhone = document.getElementById('loginPhone');
-const loginPass = document.getElementById('loginPass');
-const doLogin = document.getElementById('doLogin');
-const showSignup = document.getElementById('showSignup');
-
-const suName = document.getElementById('suName');
-const suPhone = document.getElementById('suPhone');
-const suFF = document.getElementById('suFF');
-const suPass = document.getElementById('suPass');
-const doSignup = document.getElementById('doSignup');
-const showLogin = document.getElementById('showLogin');
-
-const tList = document.getElementById('tList');
-const btnCreateT = document.getElementById('btnCreateT');
-const createPanel = document.getElementById('createPanel');
-const createTitle = document.getElementById('createTitle');
-const ctName = document.getElementById('ctName');
-const ctDate = document.getElementById('ctDate');
-const ctFee = document.getElementById('ctFee');
-const ctSlots = document.getElementById('ctSlots');
-const saveTournament = document.getElementById('saveTournament');
-const cancelCreate = document.getElementById('cancelCreate');
-
-const selectedCard = document.getElementById('selectedCard');
-const selTitle = document.getElementById('selTitle');
-const selInfo = document.getElementById('selInfo');
-const regFF = document.getElementById('regFF');
-const regPhone = document.getElementById('regPhone');
-const regAmount = document.getElementById('regAmount');
-const regUTR = document.getElementById('regUTR');
-const regProof = document.getElementById('regProof');
-const doRegister = document.getElementById('doRegister');
-const doRegisterFree = document.getElementById('doRegisterFree');
-const regsForUser = document.getElementById('regsForUser');
-const yourRegs = document.getElementById('yourRegs');
-
-const detailsBox = document.getElementById('detailsBox');
-const adminPanel = document.getElementById('adminPanel');
-const adminTList = document.getElementById('adminTList');
-const exportAll = document.getElementById('exportAll');
-const refreshAdmin = document.getElementById('refreshAdmin');
-
-/* ===== Init ===== */
-loadAll();
-renderAuthBadge();
-renderTournaments();
-renderAdminPanel();
-
-/* ===== Auth actions ===== */
-btnShowLogin.addEventListener('click', ()=>{
-  authCard.scrollIntoView({behavior:'smooth'});
-});
-doSignup.addEventListener('click', ()=>{
-  const name = suName.value.trim(), phone = suPhone.value.trim(), ff = suFF.value.trim(), pass = suPass.value;
-  if(!name || !phone || !pass){ return alert('Name, phone and password required'); }
-  // normalize phone -> ensure starts with digits only, allow country code or not
-  const p = phone.replace(/\s+/g,'');
-  const users = usersObj();
-  if(users[p]) return alert('Phone already registered. Login instead.');
-  users[p] = { name, phone: p, ffid: ff, password: pass, createdAt: Date.now() };
-  setUsersObj(users);
-  alert('Account created. Now login.');
-  // clear
-  suName.value=''; suPhone.value=''; suFF.value=''; suPass.value='';
-  // show login
-  signupView.classList.add('hidden'); loginView.classList.remove('hidden');
-});
-showSignup.addEventListener('click', ()=>{ loginView.classList.add('hidden'); signupView.classList.remove('hidden'); });
-showLogin.addEventListener('click', ()=>{ signupView.classList.add('hidden'); loginView.classList.remove('hidden'); });
-
-doLogin.addEventListener('click', ()=>{
-  const u = loginPhone.value.trim(), p = loginPass.value;
-  if(!u || !p) return alert('Enter phone and password');
-  // admin login by username
-  if(u === DEMO_ADMIN.username && p === DEMO_ADMIN.password){
-    // set an admin session (not a user) — use currentUser.username = admin:...
-    currentUser = { admin: true, username: DEMO_ADMIN.username, displayName: DEMO_ADMIN.displayName };
-    afterLogin();
-    return;
-  }
-  const users = usersObj();
-  const user = users[u];
-  if(!user || user.password !== p) return alert('Invalid credentials');
-  currentUser = user;
-  afterLogin();
-});
-
-function afterLogin(){
-  renderAuthBadge();
-  loginPhone.value=''; loginPass.value='';
-  btnLogout.classList.remove('hidden');
-  btnShowLogin.classList.add('hidden');
-  authCard.classList.add('hidden');
-  detailsBox.innerText = currentUser.admin ? 'Logged in as Admin' : `Logged in: ${currentUser.name} (${currentUser.phone})`;
-  renderTournaments();
-  renderAdminPanel();
-}
-
-/* logout */
-btnLogout.addEventListener('click', ()=>{
-  currentUser = null;
-  renderAuthBadge();
-  btnLogout.classList.add('hidden');
-  btnShowLogin.classList.remove('hidden');
-  authCard.classList.remove('hidden');
-  detailsBox.innerText = 'Login to create/join tournaments.';
-  selectedCard.classList.add('hidden');
-  createPanel.classList.add('hidden');
-  renderAdminPanel();
-});
-
-/* ===== Tournaments rendering & actions ===== */
-btnCreateT.addEventListener('click', ()=>{
-  if(!currentUser || !currentUser.admin) return alert('Only admin can create tournaments (demo)');
-  editingTournamentId = null;
-  createTitle.innerText = 'Create tournament';
-  ctName.value=''; ctDate.value=''; ctFee.value=20; ctSlots.value=50;
-  createPanel.classList.remove('hidden'); createPanel.scrollIntoView({behavior:'smooth'});
-});
-cancelCreate.addEventListener('click', ()=>{ createPanel.classList.add('hidden'); editingTournamentId = null; });
-
-saveTournament.addEventListener('click', ()=>{
-  if(!currentUser || !currentUser.admin) return alert('Admin only');
-  const name = ctName.value.trim(), date = ctDate.value, fee = Number(ctFee.value||0), slots = Number(ctSlots.value||0);
-  if(!name || !date) return alert('Name & date required');
-  if(editingTournamentId){
-    // edit existing
-    const t = tournaments.find(x=>x.id===editingTournamentId);
-    if(!t) return alert('Tournament not found');
-    t.name = name; t.date = date; t.fee = fee; t.slots = slots;
-  } else {
-    tournaments.push({ id: uid('t'), name, date, fee, slots, createdAt: Date.now() });
-  }
-  saveAll();
-  createPanel.classList.add('hidden');
-  renderTournaments();
-  renderAdminPanel();
-});
-
-/* render tournaments list */
-function renderTournaments(){
-  loadAll(); // refresh local arrays
-  if(tournaments.length===0){
-    tList.innerHTML = '<div class="muted">No tournaments yet. Admin can create tournaments.</div>';
-    return;
-  }
-  let html = '<table><thead><tr><th>Title</th><th>Date</th><th>Fee</th><th>Seats</th><th>Registered</th><th>Action</th></tr></thead><tbody>';
-  tournaments.forEach(t=>{
-    const regCount = registrations.filter(r=>r.tournamentId===t.id).length;
-    html += `<tr>
-      <td><strong>${t.name}</strong></td>
-      <td>${fmtDate(t.date)}</td>
-      <td>₹${t.fee}</td>
-      <td>${regCount} / ${t.slots}</td>
-      <td>${regCount}</td>
-      <td>
-        <button class="btn-ghost small" onclick="openTournament('${t.id}')">Open</button>
-        ${currentUser && currentUser.admin ? `<button class="btn-ghost small" onclick="editTournament('${t.id}')">Edit</button>
-        <button class="btn-ghost small danger" onclick="deleteTournament('${t.id}')">Delete</button>` : ''}
-      </td>
-    </tr>`;
-  });
-  html += '</tbody></table>';
-  tList.innerHTML = html;
-}
-
-/* actions to open/edit/delete (exposed globally) */
-window.openTournament = function(tid){
-  const t = tournaments.find(x=>x.id===tid); if(!t) return alert('Tournament not found');
-  selectedTournamentId = tid;
-  selectedCard.classList.remove('hidden');
-  selTitle.innerText = t.name;
-  selInfo.innerText = `Date: ${fmtDate(t.date)} — Fee: ₹${t.fee} — Seats: ${registrations.filter(r=>r.tournamentId===tid).length}/${t.slots}`;
-  // fill register form defaults from profile
-  regAmount.value = t.fee;
-  if(currentUser && !currentUser.admin){
-    regFF.value = currentUser.ffid || '';
-    regPhone.value = currentUser.phone || '';
-    regsForUser.classList.remove('hidden');
-    renderYourRegs();
-  } else {
-    regFF.value=''; regPhone.value=''; regsForUser.classList.add('hidden');
-  }
-  // scroll
-  selectedCard.scrollIntoView({behavior:'smooth'});
-};
-
-window.editTournament = function(tid){
-  if(!currentUser || !currentUser.admin) return alert('Admin only');
-  const t = tournaments.find(x=>x.id===tid); if(!t) return alert('Not found');
-  editingTournamentId = tid;
-  createTitle.innerText = 'Edit tournament';
-  ctName.value = t.name; ctDate.value = new Date(t.date).toISOString().slice(0,16); ctFee.value = t.fee; ctSlots.value = t.slots;
-  createPanel.classList.remove('hidden'); createPanel.scrollIntoView({behavior:'smooth'});
-};
-
-window.deleteTournament = function(tid){
-  if(!currentUser || !currentUser.admin) return alert('Admin only');
-  if(!confirm('Delete this tournament and all registrations?')) return;
-  tournaments = tournaments.filter(x=>x.id!==tid);
-  registrations = registrations.filter(r=>r.tournamentId!==tid);
-  saveAll();
-  renderTournaments();
-  renderAdminPanel();
-};
-
-/* ===== Registration flow ===== */
-doRegister.addEventListener('click', ()=>{
-  if(!currentUser || currentUser.admin) return alert('Login as user to register');
-  if(!selectedTournamentId) return alert('Open a tournament first');
-  const t = tournaments.find(x=>x.id===selectedTournamentId);
-  if(!t) return alert('Tournament not found');
-  const regCount = registrations.filter(r=>r.tournamentId===t.id).length;
-  if(regCount >= t.slots) return alert('Registration closed — seats full');
-
-  const ff = (regFF.value || currentUser.ffid || '').trim();
-  const phone = currentUser.phone;
-  const utr = regUTR.value.trim();
-  const proofFile = regProof.files[0];
-
-  if(!ff) return alert('Free Fire ID is required');
-  if(!utr) return alert('Please enter UTR / txn ref (for manual verification)');
-  if(!proofFile) return alert('Please upload payment screenshot (image)');
-
-  // read image as base64 and save registration (demo)
-  const reader = new FileReader();
-  reader.onload = function(e){
-    const dataUrl = e.target.result;
-    const reg = {
-      id: uid('r'),
-      tournamentId: t.id,
-      name: currentUser.name,
-      phone,
-      ffid: ff,
-      utr,
-      proof: dataUrl,
-      paid: true,
-      amount: t.fee,
-      verified: false,
-      createdAt: Date.now()
-    };
-    registrations.push(reg);
-    saveAll();
-    // also update user's ffid if missing
-    const users = usersObj();
-    if(users[phone] && (!users[phone].ffid || users[phone].ffid!==ff)){
-      users[phone].ffid = ff; setUsersObj(users);
-    }
-    regUTR.value=''; regProof.value=''; renderYourRegs(); renderTournaments(); renderAdminPanel();
-    alert('Registration submitted with proof. Admin will verify UTR manually.');
-  };
-  reader.readAsDataURL(proofFile);
-});
-
-doRegisterFree.addEventListener('click', ()=>{
-  if(!currentUser || currentUser.admin) return alert('Login as user to register');
-  if(!selectedTournamentId) return alert('Open a tournament first');
-  const t = tournaments.find(x=>x.id===selectedTournamentId);
-  if(!t) return alert('Tournament not found');
-  const regCount = registrations.filter(r=>r.tournamentId===t.id).length;
-  if(regCount >= t.slots) return alert('Registration closed — seats full');
-
-  const ff = (regFF.value || currentUser.ffid || '').trim();
-  const phone = currentUser.phone;
-  if(!ff) return alert('Free Fire ID required');
-  const reg = {
-    id: uid('r'),
-    tournamentId: t.id,
-    name: currentUser.name,
-    phone,
-    ffid: ff,
-    utr: '',
-    proof: '',
-    paid: false,
-    amount: 0,
-    verified: false,
-    createdAt: Date.now()
-  };
-  registrations.push(reg); saveAll(); renderYourRegs(); renderTournaments(); renderAdminPanel();
-  alert('Registered without payment (demo).');
-});
-
-/* show user's registrations for selected tournament */
-function renderYourRegs(){
-  if(!currentUser) return;
-  const list = registrations.filter(r=>r.tournamentId===selectedTournamentId && r.phone===currentUser.phone);
-  if(list.length===0){ yourRegs.innerHTML = '<div class="muted">You have no registrations for this tournament.</div>'; return; }
-  let html = '<table><thead><tr><th>FF ID</th><th>Paid</th><th>UTR</th><th>Proof</th><th>Status</th></tr></thead><tbody>';
-  list.forEach(r=>{
-    html += `<tr>
-      <td>${r.ffid}</td>
-      <td>${r.paid? '₹'+r.amount : 'No'}</td>
-      <td>${r.utr||'-'}</td>
-      <td>${r.proof? `<a href="${r.proof}" target="_blank"><img class="proof" src="${r.proof}"></a>` : '-'}</td>
-      <td>${r.verified? '<span class="status-verified">Verified</span>' : '<span class="muted">Pending</span>'}</td>
-    </tr>`;
-  });
-  html += '</tbody></table>';
-  yourRegs.innerHTML = html;
-}
-
-/* ===== Admin panel & verification ===== */
-function renderAdminPanel(){
-  if(!currentUser || !currentUser.admin){ adminPanel.classList.add('hidden'); adminTList.innerHTML = 'Login as admin to view participants.'; return; }
-  adminPanel.classList.remove('hidden');
-  if(tournaments.length===0){ adminTList.innerHTML = '<div class="muted">No tournaments found.</div>'; return; }
-  let html = '<select id="adminSelect" style="width:100%;padding:8px;border-radius:8px;background:transparent;color:#e6eef8;margin-top:6px">';
-  tournaments.forEach(t => { html += `<option value="${t.id}">${t.name} — ${fmtDate(t.date)}</option>`; });
-  html += '</select><div id="adminRegs" style="margin-top:8px" class="muted">Select tournament to view regs.</div>';
-  adminTList.innerHTML = html;
-  // bind
-  const adminSelect = document.getElementById('adminSelect');
-  adminSelect.addEventListener('change', ()=>showAdminRegs(adminSelect.value));
-  // show first by default
-  showAdminRegs(adminSelect.value);
-}
-
-/* show regs & verify controls */
-function showAdminRegs(tid){
-  const t = tournaments.find(x=>x.id===tid);
-  const regs = registrations.filter(r=>r.tournamentId===tid);
-  let html = `<div><strong>${t.name}</strong><div class="muted">Regs: ${regs.length} / ${t.slots}</div></div>`;
-  if(regs.length===0){ html += '<div class="muted" style="margin-top:6px">No registrations yet.</div>'; document.getElementById('adminRegs').innerHTML = html; return; }
-  html += '<table><thead><tr><th>Name</th><th>Phone</th><th>FF ID</th><th>Paid</th><th>UTR</th><th>Proof</th><th>Status</th><th>Action</th></tr></thead><tbody>';
-  regs.forEach(r=>{
-    html += `<tr>
-      <td>${r.name}</td>
-      <td>${r.phone}</td>
-      <td>${r.ffid}</td>
-      <td>${r.paid? '₹'+r.amount : 'No'}</td>
-      <td>${r.utr || '-'}</td>
-      <td>${r.proof? `<a href="${r.proof}" target="_blank"><img class="proof" src="${r.proof}"></a>` : '-'}</td>
-      <td>${r.verified? '<span class="status-verified">Verified</span>' : '<span class="muted">Pending</span>'}</td>
-      <td>
-        ${r.verified? '' : `<button class="btn small" onclick="verifyReg('${r.id}','${tid}')">Verify</button>`}
-        <button class="btn-ghost small" onclick="rejectReg('${r.id}','${tid}')">Reject</button>
-        <button class="btn-ghost small danger" onclick="removeReg('${r.id}')">Remove</button>
-      </td>
-    </tr>`;
-  });
-  html += '</tbody></table>';
-  document.getElementById('adminRegs').innerHTML = html;
-}
-
-/* admin verify/reject/remove */
-window.verifyReg = function(regId, tid){
-  if(!(currentUser && currentUser.admin)) return alert('Admin only');
-  const r = registrations.find(x=>x.id===regId);
-  if(!r) return alert('Registration not found');
-  r.verified = true;
-  saveAll();
-  renderAdminPanel();
-  renderTournaments();
-  alert('Registration marked verified.');
-};
-window.rejectReg = function(regId, tid){
-  if(!(currentUser && currentUser.admin)) return alert('Admin only');
-  const r = registrations.find(x=>x.id===regId);
-  if(!r) return alert('Not found');
-  r.verified = false;
-  r.rejected = true;
-  saveAll();
-  renderAdminPanel();
-  alert('Registration marked rejected.');
-};
-window.removeReg = function(regId){
-  if(!(currentUser && currentUser.admin)) return alert('Admin only');
-  if(!confirm('Remove this registration?')) return;
-  registrations = registrations.filter(x=>x.id!==regId);
-  saveAll();
-  renderTournaments(); renderAdminPanel();
-  alert('Removed.');
-};
-
-/* export CSV for selected admin tournament */
-exportAll.addEventListener('click', ()=>{
-  if(!(currentUser && currentUser.admin)) return alert('Admin only');
-  const sel = document.querySelector('#adminSelect');
-  if(!sel) return alert('Select a tournament first');
-  const tid = sel.value;
-  const rows = [['Tournament','Name','Phone','FF ID','Paid','Amount','UTR','Verified','RegisteredAt']];
-  registrations.filter(r=>r.tournamentId===tid).forEach(r=>{
-    const t = tournaments.find(x=>x.id===r.tournamentId);
-    rows.push([t? t.name:'-', r.name, r.phone, r.ffid, r.paid?'Yes':'No', r.amount||0, r.utr||'', r.verified?'Yes':'No', new Date(r.createdAt).toLocaleString()]);
-  });
-  const csv = rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
-  const blob = new Blob([csv], {type:'text/csv'}); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'tournament_regs.csv'; a.click();
-});
-
-/* refresh admin */
-refreshAdmin.addEventListener('click', ()=> renderAdminPanel());
-
-/* ===== Utility renderers ===== */
-function renderAuthBadge(){
-  if(!currentUser){ userBadge.innerText = 'Not logged in'; } else {
-    userBadge.innerText = currentUser.admin ? `Admin: ${currentUser.username}` : `${currentUser.name} (${currentUser.phone})`;
-  }
-}
-
-/* refresh admin panel when tournaments/registrations change */
-function renderAdminPanel(){
-  renderAuthBadge();
-  if(currentUser && currentUser.admin) renderAdminPanel(); // re-render
-  // simple: call renderTournaments for left panel updates
-  renderTournaments();
-}
-
-/* initial helpers to open tournament from other places: global openTournament already set */
-
-/* ===== Extra: auto-login sample for testing (optional) ===== */
-// Uncomment to auto-login as admin for quick testing
-// currentUser = { admin:true, username: DEMO_ADMIN.username, displayName: DEMO_ADMIN.displayName }; afterLogin();
-
-</script>
-</body>
-</html>
+/* ---------------- Settings ---------------- */
+const ADMIN_USERNAME = 'avinashnaruka_
