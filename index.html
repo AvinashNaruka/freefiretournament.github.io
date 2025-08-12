@@ -5,38 +5,57 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Free Fire Tournament Manager</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
   body {
-    margin: 0; font-family: 'Inter', sans-serif;
-    background: linear-gradient(135deg, #1f4037, #99f2c8);
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #1f1c2c, #928dab);
     color: #eee;
+    margin: 0; padding: 0;
+    min-height: 100vh;
   }
   .container {
-    max-width: 960px; margin: 20px auto; background: #1b2631;
-    padding: 20px; border-radius: 12px; box-shadow: 0 0 20px #0a1f2e;
+    max-width: 960px; margin: 20px auto;
+    background: #1b2631;
+    padding: 20px; border-radius: 12px;
+    box-shadow: 0 0 30px #0a1f2e;
   }
   h1,h2,h3 {
-    margin-top: 0; font-weight: 700; color: #f39c12;
+    margin-top: 0;
+    font-weight: 700;
+    color: #f39c12;
   }
   label {
-    display: block; margin-top: 12px; font-size: 0.9rem; color: #f5c26b;
+    display: block;
+    margin-top: 12px;
+    font-size: 0.9rem;
+    color: #f5c26b;
   }
   input, select, button, textarea {
-    width: 100%; margin-top: 6px; padding: 8px 10px; border-radius: 8px;
-    border: none; font-size: 1rem; font-family: 'Inter', sans-serif;
-  }
-  input, select, textarea {
-    background: #162029; color: #ddd;
+    width: 100%;
+    margin-top: 6px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1rem;
+    font-family: 'Inter', sans-serif;
+    background: #162029;
+    color: #ddd;
   }
   button {
-    background: #f39c12; color: #1b2631; cursor: pointer;
-    font-weight: 600; transition: background 0.3s ease;
+    background: #f39c12;
+    color: #1b2631;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
   }
   button:hover {
     background: #d88e1a;
   }
   .flex {
-    display: flex; gap: 15px; flex-wrap: wrap; align-items: center;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    align-items: center;
   }
   .flex > * {
     flex: 1;
@@ -46,19 +65,27 @@
     display: none;
   }
   table {
-    width: 100%; border-collapse: collapse; margin-top: 20px;
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    color: #eee;
   }
   th, td {
-    border: 1px solid #333; padding: 8px; text-align: left;
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: left;
   }
   th {
-    background: #34495e; color: #f5c26b;
+    background: #34495e;
+    color: #f5c26b;
   }
   tr:nth-child(even) {
     background: #22313f;
   }
   .message {
-    margin-top: 10px; padding: 10px; border-radius: 8px;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 8px;
   }
   .success {
     background: #27ae60;
@@ -69,37 +96,65 @@
     color: white;
   }
   nav {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 20px; color: #f39c12;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    color: #f39c12;
   }
   nav button {
-    width: auto; padding: 8px 15px;
+    width: auto;
+    padding: 8px 15px;
   }
   .gradient-btn {
     background: linear-gradient(45deg, #f39c12, #f1c40f);
-    border: none; color: #1b2631; font-weight: 700;
+    border: none;
+    color: #1b2631;
+    font-weight: 700;
   }
   .admin-badge {
-    background: #e67e22; padding: 4px 12px; border-radius: 20px;
+    background: #e67e22;
+    padding: 4px 12px;
+    border-radius: 20px;
     font-weight: 700;
   }
   a {
-    color: #f39c12; text-decoration: underline;
+    color: #f39c12;
+    text-decoration: underline;
     cursor: pointer;
   }
   .screenshot-preview {
-    max-width: 120px; max-height: 90px; border-radius: 8px; margin-top: 6px;
+    max-width: 120px;
+    max-height: 90px;
+    border-radius: 8px;
+    margin-top: 6px;
     border: 1px solid #f39c12;
   }
   .utrsmall {
-    font-size: 0.85rem; margin-top: 3px; color: #f5c26b;
+    font-size: 0.85rem;
+    margin-top: 3px;
+    color: #f5c26b;
+  }
+  #qrContainer img {
+    display: block;
+    margin: auto;
   }
   .contact-buttons {
-    margin-top: 20px;
-    display: flex; gap: 10px;
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
   }
-  .contact-buttons button {
-    flex: 1;
+  .contact-buttons a {
+    background: #f39c12;
+    color: #1b2631;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    text-decoration: none;
+  }
+  .contact-buttons a:hover {
+    background: #d88e1a;
   }
 </style>
 </head>
@@ -115,104 +170,110 @@
     </div>
   </nav>
 
-  <!-- Authentication Section -->
   <div id="authSection">
     <h2>Login / Signup</h2>
     <label for="emailInput">Email:</label>
-    <input type="email" id="emailInput" placeholder="Enter your email" autocomplete="username" />
+    <input type="email" id="emailInput" placeholder="Enter your email" autocomplete="username"/>
     <label for="passwordInput">Password:</label>
-    <input type="password" id="passwordInput" placeholder="Enter password" autocomplete="current-password" />
+    <input type="password" id="passwordInput" placeholder="Enter password" autocomplete="current-password"/>
     <button id="loginBtn">Login</button>
     <button id="signupBtn">Sign Up</button>
     <div id="authMessage"></div>
   </div>
 
-  <!-- Main App Section -->
   <div id="mainApp" class="hidden">
 
-    <!-- Admin Badge -->
     <div class="flex" style="justify-content: space-between; align-items: center;">
       <h2>Tournaments</h2>
       <span id="adminBadge" class="admin-badge hidden">Admin</span>
     </div>
 
-    <!-- Tournament List for Users -->
-    <div id="userSection">
-      <h3>Available Tournaments</h3>
-      <select id="selectTournamentUser">
-        <option value="">--Select Tournament--</option>
-      </select>
-      <button id="registerBtn" disabled>Register</button>
-
-      <h3>Your Registrations</h3>
-      <table id="userRegistrationsTable">
-        <thead>
-          <tr>
-            <th>Tournament</th><th>Mode</th><th>Entry Fee</th><th>Payment Status</th><th>Free Fire ID</th><th>Phone</th><th>UTR</th><th>Screenshot</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
-    </div>
-
-    <!-- Registration Modal -->
-    <div id="registrationModal" class="hidden" style="background:#162029; padding:15px; border-radius:8px; margin-top:20px;">
-      <h3>Register for Tournament</h3>
-      <label for="ffIdInput">Free Fire ID:</label>
-      <input type="text" id="ffIdInput" placeholder="Enter your Free Fire ID" />
-      <label for="phoneInput">Phone Number (WhatsApp):</label>
-      <input type="tel" id="phoneInput" placeholder="Enter your WhatsApp phone number" />
-      <label for="utrInput">UTR Number:</label>
-      <input type="text" id="utrInput" placeholder="Enter UTR Number" />
-      <label for="screenshotInput">Upload Payment Screenshot:</label>
-      <input type="file" id="screenshotInput" accept="image/*" />
-      <img id="screenshotPreview" class="screenshot-preview hidden" alt="Screenshot preview" />
-      <button id="submitRegistrationBtn">Submit Registration</button>
-      <button id="cancelRegistrationBtn" style="background:#c0392b; margin-top:10px;">Cancel</button>
-      <div id="registrationMessage"></div>
-    </div>
-
-    <!-- Admin Section -->
-    <div id="adminSection" class="hidden" style="margin-top:30px;">
+    <div id="adminControls" class="hidden" style="margin-bottom:20px; border: 1px solid #34495e; padding: 15px; border-radius: 8px;">
       <h3>Create / Edit Tournament</h3>
-      <label for="tournNameInput">Name:</label>
-      <input type="text" id="tournNameInput" placeholder="Tournament name" />
-      <label for="tournDateInput">Date:</label>
-      <input type="date" id="tournDateInput" />
-      <label for="tournTimeInput">Time:</label>
-      <input type="time" id="tournTimeInput" />
-      <label for="tournModeSelect">Mode:</label>
-      <select id="tournModeSelect">
+      <label for="tournamentNameInput">Tournament Name:</label>
+      <input type="text" id="tournamentNameInput" placeholder="Enter tournament name" />
+      
+      <label for="tournamentDateInput">Date & Time:</label>
+      <input type="datetime-local" id="tournamentDateInput" />
+
+      <label for="modeSelect">Mode:</label>
+      <select id="modeSelect">
         <option value="solo">Solo</option>
         <option value="duo">Duo</option>
         <option value="squad">Squad</option>
       </select>
-      <label for="tournEntryFeeInput">Entry Fee (₹):</label>
-      <input type="number" id="tournEntryFeeInput" placeholder="Entry Fee in INR" min="0" />
-      <label for="tournSlotLimitInput">Slot Limit:</label>
-      <input type="number" id="tournSlotLimitInput" placeholder="Max slots (e.g., 48 for squads)" min="1" />
-      <button id="createTournBtn" class="gradient-btn">Create Tournament</button>
-      <div id="createTournMsg"></div>
 
-      <h3 style="margin-top:30px;">All Tournaments</h3>
-      <table id="adminTournTable">
+      <label for="entryFeeInput">Entry Fee (₹):</label>
+      <input type="number" id="entryFeeInput" placeholder="Enter entry fee" min="0" />
+
+      <label for="slotLimitInput">Slot Limit (Total Players):</label>
+      <input type="number" id="slotLimitInput" placeholder="Max total player slots" min="1" />
+
+      <button id="saveTournamentBtn" class="gradient-btn" style="margin-top:10px;">Save Tournament</button>
+      <button id="cancelEditTournamentBtn" style="margin-top:10px; background:#c0392b;">Cancel Edit</button>
+      <div id="tournamentFormMessage"></div>
+    </div>
+
+    <label for="selectTournamentUser">Select Tournament to Register:</label>
+    <select id="selectTournamentUser">
+      <option value="">-- Select --</option>
+    </select>
+    <button id="registerBtn" disabled>Register</button>
+
+    <div id="registrationModal" class="hidden" style="background:#162029; padding:15px; border-radius:8px; margin-top:20px;">
+      <h3>Register for Tournament & Payment</h3>
+      <div>
+        <strong>Entry Fee:</strong> ₹<span id="entryFeeDisplay"></span><br/>
+        <strong>Mode:</strong> <span id="modeDisplay"></span>
+      </div>
+
+      <div id="ffIdsContainer" style="margin-top: 15px;">
+        <!-- FF ID inputs inserted dynamically -->
+      </div>
+
+      <label for="phoneInput">Phone Number (WhatsApp):</label>
+      <input type="tel" id="phoneInput" placeholder="Enter your WhatsApp phone number" />
+
+      <div style="margin-top: 15px;">
+        <button id="payRedirectBtn" class="gradient-btn">Pay via UPI Link</button>
+        <button id="showQrBtn" class="gradient-btn">Show UPI QR Code</button>
+      </div>
+
+      <div id="qrContainer" style="margin-top: 15px; display:none; text-align:center;">
+        <img id="upiQrImage" alt="UPI QR Code" style="max-width: 220px; margin:auto;"/>
+        <button id="hideQrBtn" style="margin-top:10px; background:#c0392b;">Hide QR</button>
+      </div>
+
+      <hr style="margin-top: 20px;"/>
+
+      <label for="utrInput">Enter UTR Number after Payment:</label>
+      <input type="text" id="utrInput" placeholder="Enter UTR Number" />
+      <label for="screenshotInput">Upload Payment Screenshot:</label>
+      <input type="file" id="screenshotInput" accept="image/*" />
+      <img id="screenshotPreview" class="screenshot-preview hidden" alt="Screenshot preview" />
+      <button id="submitRegistrationBtn" disabled>Submit Registration</button>
+      <button id="cancelRegistrationBtn" style="background:#c0392b; margin-top:10px;">Cancel</button>
+      <div id="registrationMessage"></div>
+    </div>
+
+    <div id="userRegistrationsSection" style="margin-top:30px;">
+      <h3>Your Registrations</h3>
+      <table id="userRegistrationsTable">
         <thead>
           <tr>
-            <th>Name</th><th>Date & Time</th><th>Mode</th><th>Entry Fee</th><th>Slot Limit</th><th>Actions</th>
+            <th>Tournament</th><th>Mode</th><th>FF IDs</th><th>Phone</th><th>Payment Status</th><th>UTR</th><th>Screenshot</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
+    </div>
 
-      <h3 style="margin-top:30px;">Tournament Registrations</h3>
-      <label for="selectTournamentReg">Select Tournament:</label>
-      <select id="selectTournamentReg">
-        <option value="">--Select Tournament--</option>
-      </select>
+    <div id="adminRegistrationsSection" class="hidden" style="margin-top:30px;">
+      <h3>All Registrations</h3>
       <table id="adminRegistrationsTable">
         <thead>
           <tr>
-            <th>Free Fire ID</th><th>Phone</th><th>UTR</th><th>Screenshot</th><th>Payment Status</th><th>WhatsApp</th>
+            <th>Tournament</th><th>User Email</th><th>Mode</th><th>FF IDs</th><th>Phone</th><th>Payment Status</th><th>UTR</th><th>Screenshot</th>
           </tr>
         </thead>
         <tbody></tbody>
@@ -220,27 +281,22 @@
     </div>
 
     <div class="contact-buttons">
-      <button onclick="window.open('tel:7976726014')">Call Admin</button>
-      <button onclick="window.open('https://wa.me/917976726014')">WhatsApp Admin</button>
+      <a href="tel:+917976726014">Call Admin</a>
+      <a href="https://wa.me/917976726014" target="_blank">WhatsApp Admin</a>
     </div>
+
   </div>
 
 </div>
 
-<!-- Firebase -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-  import {
-    getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-  import {
-    getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, getDoc, query, where, onSnapshot, orderBy
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-  import {
-    getStorage, ref, uploadBytes, getDownloadURL
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js";
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/12.1.0/firebase-storage.js"></script>
 
-  // Your Firebase config
+<script>
+  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyCAjiInmaJsHSqhlxZZ0heIdNEMu6m6Y6Y",
     authDomain: "freefire-tournament-2009.firebaseapp.com",
@@ -250,52 +306,48 @@
     appId: "1:498357283098:web:2f05123efe6c57e65524a3"
   };
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-  const storage = getStorage(app);
-
-  // Admin credentials (email + password)
-  const adminEmail = "avinashnaruka89@gmail.com";
+  // Init Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+  const storage = firebase.storage();
 
   // Elements
-  const authSection = document.getElementById("authSection");
   const emailInput = document.getElementById("emailInput");
   const passwordInput = document.getElementById("passwordInput");
   const loginBtn = document.getElementById("loginBtn");
   const signupBtn = document.getElementById("signupBtn");
   const authMessage = document.getElementById("authMessage");
-
-  const mainApp = document.getElementById("mainApp");
-  const userEmailSpan = document.getElementById("userEmail");
   const logoutBtn = document.getElementById("logoutBtn");
+  const userEmailSpan = document.getElementById("userEmail");
+
+  const authSection = document.getElementById("authSection");
+  const mainApp = document.getElementById("mainApp");
+
   const adminBadge = document.getElementById("adminBadge");
+  const adminControls = document.getElementById("adminControls");
+  const tournamentNameInput = document.getElementById("tournamentNameInput");
+  const tournamentDateInput = document.getElementById("tournamentDateInput");
+  const modeSelect = document.getElementById("modeSelect");
+  const entryFeeInput = document.getElementById("entryFeeInput");
+  const slotLimitInput = document.getElementById("slotLimitInput");
+  const saveTournamentBtn = document.getElementById("saveTournamentBtn");
+  const cancelEditTournamentBtn = document.getElementById("cancelEditTournamentBtn");
+  const tournamentFormMessage = document.getElementById("tournamentFormMessage");
 
-  // Admin Controls
-  const adminSection = document.getElementById("adminSection");
-  const tournNameInput = document.getElementById("tournNameInput");
-  const tournDateInput = document.getElementById("tournDateInput");
-  const tournTimeInput = document.getElementById("tournTimeInput");
-  const tournModeSelect = document.getElementById("tournModeSelect");
-  const tournEntryFeeInput = document.getElementById("tournEntryFeeInput");
-  const tournSlotLimitInput = document.getElementById("tournSlotLimitInput");
-  const createTournBtn = document.getElementById("createTournBtn");
-  const createTournMsg = document.getElementById("createTournMsg");
-  const adminTournTableBody = document.querySelector("#adminTournTable tbody");
-  const selectTournamentReg = document.getElementById("selectTournamentReg");
-  const adminRegistrationsTableBody = document.querySelector("#adminRegistrationsTable tbody");
-
-  // User Controls
-  const userSection = document.getElementById("userSection");
   const selectTournamentUser = document.getElementById("selectTournamentUser");
   const registerBtn = document.getElementById("registerBtn");
-  const userRegistrationsTableBody = document.querySelector("#userRegistrationsTable tbody");
 
-  // Registration modal
   const registrationModal = document.getElementById("registrationModal");
-  const ffIdInput = document.getElementById("ffIdInput");
+  const entryFeeDisplay = document.getElementById("entryFeeDisplay");
+  const modeDisplay = document.getElementById("modeDisplay");
+  const ffIdsContainer = document.getElementById("ffIdsContainer");
   const phoneInput = document.getElementById("phoneInput");
+  const payRedirectBtn = document.getElementById("payRedirectBtn");
+  const showQrBtn = document.getElementById("showQrBtn");
+  const qrContainer = document.getElementById("qrContainer");
+  const upiQrImage = document.getElementById("upiQrImage");
+  const hideQrBtn = document.getElementById("hideQrBtn");
   const utrInput = document.getElementById("utrInput");
   const screenshotInput = document.getElementById("screenshotInput");
   const screenshotPreview = document.getElementById("screenshotPreview");
@@ -303,463 +355,552 @@
   const cancelRegistrationBtn = document.getElementById("cancelRegistrationBtn");
   const registrationMessage = document.getElementById("registrationMessage");
 
-  // Helper - format Date & Time nicely
-  function formatDateTime(isoString){
-    if(!isoString) return "";
-    const dt = new Date(isoString);
-    return dt.toLocaleDateString() + " " + dt.toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});
-  }
+  const userRegistrationsTableBody = document.querySelector("#userRegistrationsTable tbody");
+  const adminRegistrationsSection = document.getElementById("adminRegistrationsSection");
+  const adminRegistrationsTableBody = document.querySelector("#adminRegistrationsTable tbody");
 
-  // Show/hide parts depending on role
   let currentUser = null;
   let isAdmin = false;
 
-  // Login logic
-  loginBtn.onclick = () => {
+  let editTournamentId = null;
+  let currentTournamentData = null;
+  let currentTournamentId = null;
+
+  // Admin credentials
+  const ADMIN_EMAIL = "avinashnaruka89@gmail.com";
+  const ADMIN_PASS = "031105";
+
+  // UPI Payment info
+  const phonePeUPI = "7976726014@axl";
+  const googlePayUPI = "avinashnaruka89@okicici";
+
+  // Fixed amount helper
+  const upiAmountFixed = (amount) => amount.toFixed(2);
+
+  // Generate UPI link (using PhonePe ID here)
+  function generateUPILink(amount) {
+    return `upi://pay?pa=${phonePeUPI}&pn=Avinash&am=${upiAmountFixed(amount)}&cu=INR`;
+  }
+  // Generate QR code URL (Google Charts API)
+  function generateUPIQRCodeURL(amount) {
+    const link = generateUPILink(amount);
+    return `https://chart.googleapis.com/chart?cht=qr&chs=220x220&chl=${encodeURIComponent(link)}`;
+  }
+
+  // --- AUTH ---
+
+  loginBtn.onclick = async () => {
     authMessage.textContent = "";
     const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
-    if(!email || !password){
-      authMessage.textContent = "Please enter email and password.";
+    const password = passwordInput.value;
+    if (!email || !password) {
+      authMessage.textContent = "Email and password required.";
       authMessage.className = "message error";
       return;
     }
-    signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        // Success handled by onAuthStateChanged
-      })
-      .catch(e => {
-        authMessage.textContent = "Login failed: "+e.message;
-        authMessage.className = "message error";
-      });
+    try {
+      await auth.signInWithEmailAndPassword(email, password);
+    } catch (e) {
+      authMessage.textContent = e.message;
+      authMessage.className = "message error";
+    }
   };
 
-  // Signup logic
-  signupBtn.onclick = () => {
+  signupBtn.onclick = async () => {
     authMessage.textContent = "";
     const email = emailInput.value.trim();
-    const password = passwordInput.value.trim();
-    if(!email || !password){
-      authMessage.textContent = "Please enter email and password.";
+    const password = passwordInput.value;
+    if (!email || !password) {
+      authMessage.textContent = "Email and password required.";
       authMessage.className = "message error";
       return;
     }
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        authMessage.textContent = "Account created. Please login.";
-        authMessage.className = "message success";
-      })
-      .catch(e => {
-        authMessage.textContent = "Signup failed: "+e.message;
-        authMessage.className = "message error";
-      });
+    try {
+      await auth.createUserWithEmailAndPassword(email, password);
+      alert("Signup successful. You can now login.");
+    } catch (e) {
+      authMessage.textContent = e.message;
+      authMessage.className = "message error";
+    }
   };
 
-  // Logout
   logoutBtn.onclick = () => {
-    signOut(auth);
+    auth.signOut();
   };
 
-  // On auth state change
-  onAuthStateChanged(auth, user => {
-    if(user){
-      currentUser = user;
-      isAdmin = (user.email === adminEmail);
+  auth.onAuthStateChanged(async user => {
+    currentUser = user;
+    if (user) {
       authSection.classList.add("hidden");
       mainApp.classList.remove("hidden");
-      logoutBtn.classList.remove("hidden");
       userEmailSpan.textContent = user.email;
+      logoutBtn.classList.remove("hidden");
+      // Check admin
+      isAdmin = (user.email === ADMIN_EMAIL);
       adminBadge.classList.toggle("hidden", !isAdmin);
-      adminSection.classList.toggle("hidden", !isAdmin);
-      userSection.classList.toggle("hidden", isAdmin);
+      adminControls.classList.toggle("hidden", !isAdmin);
+      adminRegistrationsSection.classList.toggle("hidden", !isAdmin);
 
-      // Load data
-      loadTournamentsForUser();
-      loadUserRegistrations();
-      if(isAdmin){
-        loadAdminTournaments();
-        loadTournamentsForAdminSelect();
-      }
+      await loadTournaments();
+      await loadUserRegistrations();
+      if(isAdmin) await loadAllRegistrations();
+
     } else {
-      currentUser = null;
-      isAdmin = false;
       authSection.classList.remove("hidden");
       mainApp.classList.add("hidden");
-      logoutBtn.classList.add("hidden");
       userEmailSpan.textContent = "";
+      logoutBtn.classList.add("hidden");
       adminBadge.classList.add("hidden");
-      adminSection.classList.add("hidden");
-      userSection.classList.remove("hidden");
-      clearCreateTournamentForm();
+      adminControls.classList.add("hidden");
+      adminRegistrationsSection.classList.add("hidden");
     }
   });
 
-  // Load tournaments dropdown for users
-  async function loadTournamentsForUser(){
-    selectTournamentUser.innerHTML = `<option value="">--Select Tournament--</option>`;
-    const tournSnap = await getDocs(collection(db, "tournaments"));
-    for(const docSnap of tournSnap.docs){
-      const t = docSnap.data();
-      const slotsTaken = await getSlotsTaken(docSnap.id);
-      const slotsLeft = t.slotLimit - slotsTaken;
-      const closed = slotsLeft <= 0;
-      const option = document.createElement("option");
-      option.value = docSnap.id;
-      option.textContent = `${t.name} (${formatDateTime(t.dateTime)}) - ₹${t.entryFee} - ${t.mode} - Slots left: ${slotsLeft}`;
-      option.disabled = closed;
-      selectTournamentUser.appendChild(option);
+  // --- TOURNAMENT CRUD ---
+
+  async function loadTournaments() {
+    selectTournamentUser.innerHTML = `<option value="">-- Select --</option>`;
+    try {
+      const snapshot = await db.collection("tournaments").orderBy("dateTime", "asc").get();
+      snapshot.forEach(docSnap => {
+        const data = docSnap.data();
+        // Calculate slots filled to disable registration if full
+        calculateSlotsFilled(docSnap.id).then(slotsFilled => {
+          let disabled = false;
+          if(data.mode === "solo") {
+            if(slotsFilled >= data.slotLimit) disabled = true;
+          } else if(data.mode === "duo") {
+            if(slotsFilled >= data.slotLimit) disabled = true;
+          } else if(data.mode === "squad") {
+            if(slotsFilled >= data.slotLimit) disabled = true;
+          }
+          const option = document.createElement("option");
+          option.value = docSnap.id;
+          option.textContent = `${data.name} (${data.mode.toUpperCase()}) - ₹${data.entryFee} - ${new Date(data.dateTime).toLocaleString()}${disabled ? " [FULL]" : ""}`;
+          option.disabled = disabled;
+          selectTournamentUser.appendChild(option);
+        });
+      });
+    } catch (e) {
+      console.error("Error loading tournaments:", e);
     }
-    registerBtn.disabled = true;
   }
 
-  // Load tournaments dropdown for admin registrations filter
-  async function loadTournamentsForAdminSelect(){
-    selectTournamentReg.innerHTML = `<option value="">--Select Tournament--</option>`;
-    const tournSnap = await getDocs(collection(db, "tournaments"));
-    for(const docSnap of tournSnap.docs){
-      const t = docSnap.data();
-      const option = document.createElement("option");
-      option.value = docSnap.id;
-      option.textContent = `${t.name} (${formatDateTime(t.dateTime)})`;
-      selectTournamentReg.appendChild(option);
-    }
+  // Calculate total slots filled for tournament
+  async function calculateSlotsFilled(tournamentId) {
+    const registrationsSnap = await db.collection("registrations")
+      .where("tournamentId", "==", tournamentId)
+      .get();
+    let slots = 0;
+    registrationsSnap.forEach(doc => {
+      const reg = doc.data();
+      if(reg.mode === "solo") slots += 1;
+      else if(reg.mode === "duo") slots += 2;
+      else if(reg.mode === "squad") slots += 4;
+    });
+    return slots;
   }
 
-  // Get total slots taken in a tournament (based on mode)
-  async function getSlotsTaken(tournId){
-    const regSnap = await getDocs(query(collection(db,"registrations"), where("tournamentId","==",tournId)));
-    if(regSnap.empty) return 0;
-    let count = 0;
-    for(const regDoc of regSnap.docs){
-      const reg = regDoc.data();
-      if(reg.mode==="solo") count += 1;
-      else if(reg.mode==="duo") count += 2;
-      else if(reg.mode==="squad") count += 4;
-    }
-    return count;
-  }
+  saveTournamentBtn.onclick = async () => {
+    tournamentFormMessage.textContent = "";
+    const name = tournamentNameInput.value.trim();
+    const dateTime = tournamentDateInput.value;
+    const mode = modeSelect.value;
+    const entryFee = parseFloat(entryFeeInput.value);
+    const slotLimit = parseInt(slotLimitInput.value);
 
-  // Enable register button only when tournament selected
-  selectTournamentUser.onchange = () => {
-    registerBtn.disabled = selectTournamentUser.value === "";
+    if(!name || !dateTime || !mode || isNaN(entryFee) || isNaN(slotLimit) || slotLimit < 1) {
+      tournamentFormMessage.textContent = "Please fill all fields correctly.";
+      tournamentFormMessage.className = "message error";
+      return;
+    }
+
+    try {
+      if(editTournamentId){
+        await db.collection("tournaments").doc(editTournamentId).update({
+          name, dateTime, mode, entryFee, slotLimit
+        });
+        editTournamentId = null;
+      } else {
+        await db.collection("tournaments").add({
+          name, dateTime, mode, entryFee, slotLimit
+        });
+      }
+      tournamentFormMessage.textContent = "Tournament saved successfully.";
+      tournamentFormMessage.className = "message success";
+      tournamentNameInput.value = "";
+      tournamentDateInput.value = "";
+      entryFeeInput.value = "";
+      slotLimitInput.value = "";
+      modeSelect.value = "solo";
+      await loadTournaments();
+    } catch (e) {
+      tournamentFormMessage.textContent = e.message;
+      tournamentFormMessage.className = "message error";
+    }
   };
 
-  // Show registration modal
+  cancelEditTournamentBtn.onclick = () => {
+    editTournamentId = null;
+    tournamentFormMessage.textContent = "";
+    tournamentNameInput.value = "";
+    tournamentDateInput.value = "";
+    entryFeeInput.value = "";
+    slotLimitInput.value = "";
+    modeSelect.value = "solo";
+  };
+
+  // --- USER REGISTRATION MODAL LOGIC ---
+
+  let registrationTournament = null;
+
+  selectTournamentUser.onchange = async () => {
+    const tid = selectTournamentUser.value;
+    registerBtn.disabled = !tid;
+    if(!tid) return;
+    try {
+      const docSnap = await db.collection("tournaments").doc(tid).get();
+      if(docSnap.exists){
+        registrationTournament = docSnap.data();
+        registrationTournament.id = tid;
+      } else {
+        registrationTournament = null;
+      }
+    } catch (e) {
+      console.error("Error fetching tournament data", e);
+      registrationTournament = null;
+    }
+  };
+
   registerBtn.onclick = () => {
+    if(!registrationTournament) {
+      alert("Select a tournament first.");
+      return;
+    }
+
     registrationMessage.textContent = "";
-    ffIdInput.value = "";
-    phoneInput.value = "";
     utrInput.value = "";
     screenshotInput.value = "";
     screenshotPreview.src = "";
     screenshotPreview.classList.add("hidden");
+    phoneInput.value = "";
+
+    entryFeeDisplay.textContent = registrationTournament.entryFee;
+    modeDisplay.textContent = registrationTournament.mode;
+
+    ffIdsContainer.innerHTML = "";
+    let ffCount = 1;
+    if(registrationTournament.mode === "duo") ffCount = 2;
+    else if(registrationTournament.mode === "squad") ffCount = 4;
+
+    for(let i=1; i<=ffCount; i++){
+      const label = document.createElement("label");
+      label.textContent = `Free Fire ID ${i}:`;
+      const input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = `Enter Free Fire ID ${i}`;
+      input.id = `ffIdInput${i}`;
+      input.required = true;
+      ffIdsContainer.appendChild(label);
+      ffIdsContainer.appendChild(input);
+    }
+
+    qrContainer.style.display = "none";
+    submitRegistrationBtn.disabled = true;
+
     registrationModal.classList.remove("hidden");
   };
 
-  // Preview screenshot
-  screenshotInput.onchange = () => {
-    const file = screenshotInput.files[0];
-    if(!file) {
+  utrInput.oninput = screenshotInput.onchange = () => {
+    submitRegistrationBtn.disabled = !(utrInput.value.trim() && screenshotInput.files.length > 0);
+    if(screenshotInput.files.length > 0){
+      const file = screenshotInput.files[0];
+      const reader = new FileReader();
+      reader.onload = e => {
+        screenshotPreview.src = e.target.result;
+        screenshotPreview.classList.remove("hidden");
+      };
+      reader.readAsDataURL(file);
+    } else {
       screenshotPreview.src = "";
       screenshotPreview.classList.add("hidden");
-      return;
     }
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      screenshotPreview.src = e.target.result;
-      screenshotPreview.classList.remove("hidden");
-    };
-    reader.readAsDataURL(file);
   };
 
-  // Submit registration
-  submitRegistrationBtn.onclick = async () => {
-    registrationMessage.textContent = "";
-    const tournamentId = selectTournamentUser.value;
-    const ffId = ffIdInput.value.trim();
-    const phone = phoneInput.value.trim();
-    const utr = utrInput.value.trim();
-    const file = screenshotInput.files[0];
+  payRedirectBtn.onclick = () => {
+    if(!registrationTournament) return;
+    const upiLink = generateUPILink(registrationTournament.entryFee);
+    window.open(upiLink, "_blank");
+    alert("Complete payment, then enter UTR number and upload screenshot.");
+  };
 
-    if(!tournamentId || !ffId || !phone || !utr || !file){
-      registrationMessage.textContent = "All fields including screenshot upload are mandatory.";
-      registrationMessage.className = "message error";
-      return;
-    }
-    if(!/^\d{10}$/.test(phone)){
-      registrationMessage.textContent = "Phone number must be 10 digits.";
-      registrationMessage.className = "message error";
-      return;
-    }
+  showQrBtn.onclick = () => {
+    if(!registrationTournament) return;
+    const qrUrl = generateUPIQRCodeURL(registrationTournament.entryFee);
+    upiQrImage.src = qrUrl;
+    qrContainer.style.display = "block";
+  };
 
-    // Check slots available again before upload
-    const tournDoc = await getDoc(doc(db,"tournaments",tournamentId));
-    if(!tournDoc.exists()){
-      registrationMessage.textContent = "Tournament not found.";
-      registrationMessage.className = "message error";
-      return;
-    }
-    const tournData = tournDoc.data();
-    const slotsTaken = await getSlotsTaken(tournamentId);
-    let slotsRequired = 1;
-    if(tournData.mode==="duo") slotsRequired = 2;
-    else if(tournData.mode==="squad") slotsRequired = 4;
-    if(slotsTaken + slotsRequired > tournData.slotLimit){
-      registrationMessage.textContent = "Slots full, registration closed.";
-      registrationMessage.className = "message error";
-      return;
-    }
-
-    // Upload screenshot to Firebase Storage
-    registrationMessage.textContent = "Uploading screenshot...";
-    const storageRef = ref(storage, `screenshots/${currentUser.uid}/${Date.now()}_${file.name}`);
-    try {
-      const uploadResult = await uploadBytes(storageRef, file);
-      const downloadURL = await getDownloadURL(uploadResult.ref);
-
-      // Add registration doc
-      await addDoc(collection(db, "registrations"), {
-        tournamentId,
-        userId: currentUser.uid,
-        userEmail: currentUser.email,
-        ffId,
-        phone,
-        utr,
-        screenshotUrl: downloadURL,
-        mode: tournData.mode,
-        entryFee: tournData.entryFee,
-        paymentStatus: "Pending",
-        createdAt: new Date().toISOString()
-      });
-
-      registrationMessage.textContent = "Registration submitted successfully!";
-      registrationMessage.className = "message success";
-      registrationModal.classList.add("hidden");
-      await loadUserRegistrations();
-      await loadTournamentsForUser();
-    } catch(e){
-      registrationMessage.textContent = "Error uploading screenshot: " + e.message;
-      registrationMessage.className = "message error";
-    }
+  hideQrBtn.onclick = () => {
+    qrContainer.style.display = "none";
   };
 
   cancelRegistrationBtn.onclick = () => {
     registrationModal.classList.add("hidden");
   };
 
-  // Load user registrations
-  async function loadUserRegistrations(){
-    userRegistrationsTableBody.innerHTML = "";
-    const regSnap = await getDocs(query(collection(db,"registrations"), where("userId","==",currentUser.uid)));
-    if(regSnap.empty){
-      userRegistrationsTableBody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No registrations found.</td></tr>`;
+  submitRegistrationBtn.onclick = async () => {
+    registrationMessage.textContent = "";
+
+    if(!registrationTournament){
+      registrationMessage.textContent = "Tournament data missing.";
+      registrationMessage.className = "message error";
       return;
     }
-    for(const regDoc of regSnap.docs){
-      const r = regDoc.data();
-      const tournDoc = await getDoc(doc(db,"tournaments",r.tournamentId));
-      const tournName = tournDoc.exists() ? tournDoc.data().name : "Deleted";
-      const paymentCls = r.paymentStatus==="Approved" ? "success" : (r.paymentStatus==="Rejected" ? "error" : "");
-      const paymentText = r.paymentStatus;
-      userRegistrationsTableBody.innerHTML += `
-      <tr>
-        <td>${tournName}</td>
-        <td>${r.mode}</td>
-        <td>₹${r.entryFee}</td>
-        <td class="${paymentCls}">${paymentText}</td>
-        <td>${r.ffId}</td>
-        <td>${r.phone}</td>
-        <td>${r.utr}</td>
-        <td><a href="${r.screenshotUrl}" target="_blank">View</a></td>
-      </tr>`;
-    }
-  }
 
-  // Load admin tournaments list
-  async function loadAdminTournaments(){
-    adminTournTableBody.innerHTML = "";
-    const tournSnap = await getDocs(collection(db,"tournaments"));
-    if(tournSnap.empty){
-      adminTournTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No tournaments created yet.</td></tr>`;
+    // Collect FF IDs
+    let ffIds = [];
+    const ffCount = (registrationTournament.mode === "duo") ? 2 : (registrationTournament.mode === "squad") ? 4 : 1;
+    for(let i=1; i<=ffCount; i++){
+      const val = document.getElementById(`ffIdInput${i}`).value.trim();
+      if(!val){
+        registrationMessage.textContent = `Please enter Free Fire ID ${i}.`;
+        registrationMessage.className = "message error";
+        return;
+      }
+      ffIds.push(val);
+    }
+
+    // Validate phone
+    const phone = phoneInput.value.trim();
+    if(!/^\d{10}$/.test(phone)){
+      registrationMessage.textContent = "Phone number must be 10 digits.";
+      registrationMessage.className = "message error";
       return;
     }
-    for(const docSnap of tournSnap.docs){
-      const t = docSnap.data();
-      const id = docSnap.id;
-      adminTournTableBody.innerHTML += `
-      <tr>
-        <td>${t.name}</td>
-        <td>${formatDateTime(t.dateTime)}</td>
-        <td>${t.mode}</td>
-        <td>₹${t.entryFee}</td>
-        <td>${t.slotLimit}</td>
-        <td>
-          <button data-id="${id}" class="editTournBtn">Edit</button>
-          <button data-id="${id}" class="deleteTournBtn">Delete</button>
-        </td>
-      </tr>`;
-    }
-    // Add edit button events
-    document.querySelectorAll(".editTournBtn").forEach(btn => {
-      btn.onclick = async () => {
-        const id = btn.dataset.id;
-        const docSnap = await getDoc(doc(db,"tournaments",id));
-        if(!docSnap.exists()){
-          alert("Tournament not found");
-          return;
-        }
-        const t = docSnap.data();
-        tournNameInput.value = t.name;
-        if(t.dateTime){
-          const dt = new Date(t.dateTime);
-          tournDateInput.value = dt.toISOString().slice(0,10);
-          tournTimeInput.value = dt.toTimeString().slice(0,5);
-        } else {
-          tournDateInput.value = "";
-          tournTimeInput.value = "";
-        }
-        tournModeSelect.value = t.mode;
-        tournEntryFeeInput.value = t.entryFee;
-        tournSlotLimitInput.value = t.slotLimit;
-        createTournBtn.textContent = "Update Tournament";
-        createTournMsg.textContent = "";
-        createTournBtn.dataset.editingId = id;
-        window.scrollTo({top:0, behavior:"smooth"});
-      };
-    });
-    // Delete buttons events
-    document.querySelectorAll(".deleteTournBtn").forEach(btn => {
-      btn.onclick = async () => {
-        if(!confirm("Are you sure you want to delete this tournament? This will also delete all registrations.")) return;
-        const id = btn.dataset.id;
-        try {
-          // Delete all registrations for this tournament first
-          const regSnap = await getDocs(query(collection(db,"registrations"), where("tournamentId","==",id)));
-          for(const regDoc of regSnap.docs){
-            await deleteDoc(doc(db,"registrations",regDoc.id));
-          }
-          await deleteDoc(doc(db,"tournaments",id));
-          createTournMsg.textContent = "Tournament deleted successfully.";
-          createTournMsg.className = "message success";
-          clearCreateTournamentForm();
-          await loadAdminTournaments();
-          await loadTournamentsForAdminSelect();
-          await loadTournamentsForUser();
-          await loadUserRegistrations();
-        } catch(e){
-          createTournMsg.textContent = "Error deleting tournament: "+e.message;
-          createTournMsg.className = "message error";
-        }
-      };
-    });
-  }
 
-  // Create or update tournament
-  createTournBtn.onclick = async () => {
-    createTournMsg.textContent = "";
-    const name = tournNameInput.value.trim();
-    const date = tournDateInput.value;
-    const time = tournTimeInput.value;
-    const mode = tournModeSelect.value;
-    const entryFee = parseFloat(tournEntryFeeInput.value);
-    const slotLimit = parseInt(tournSlotLimitInput.value);
-
-    if(!name || !date || !time || !mode || isNaN(entryFee) || isNaN(slotLimit) || slotLimit <= 0){
-      createTournMsg.textContent = "Please fill all fields correctly.";
-      createTournMsg.className = "message error";
+    const utr = utrInput.value.trim();
+    if(!utr){
+      registrationMessage.textContent = "Please enter UTR number.";
+      registrationMessage.className = "message error";
       return;
     }
-    const dateTimeISO = new Date(date+"T"+time+":00").toISOString();
+
+    if(screenshotInput.files.length === 0){
+      registrationMessage.textContent = "Please upload payment screenshot.";
+      registrationMessage.className = "message error";
+      return;
+    }
+    const file = screenshotInput.files[0];
+
+    // Upload screenshot & add registration
+    registrationMessage.textContent = "Uploading payment screenshot...";
 
     try {
-      if(createTournBtn.dataset.editingId){
-        await updateDoc(doc(db,"tournaments",createTournBtn.dataset.editingId), {
-          name, dateTime: dateTimeISO, mode, entryFee, slotLimit
-        });
-        createTournMsg.textContent = "Tournament updated successfully!";
-        createTournBtn.textContent = "Create Tournament";
-        delete createTournBtn.dataset.editingId;
-      } else {
-        await addDoc(collection(db,"tournaments"), {
-          name, dateTime: dateTimeISO, mode, entryFee, slotLimit,
-          createdAt: new Date().toISOString()
-        });
-        createTournMsg.textContent = "Tournament created successfully!";
+      const storageRef = storage.ref(`screenshots/${currentUser.uid}/${Date.now()}_${file.name}`);
+      const uploadResult = await storageRef.put(file);
+      const screenshotUrl = await uploadResult.ref.getDownloadURL();
+
+      // Check slot availability
+      const slotsFilled = await calculateSlotsFilled(registrationTournament.id);
+      const maxSlots = registrationTournament.slotLimit;
+      let requiredSlots = (registrationTournament.mode === "solo") ? 1 : (registrationTournament.mode === "duo") ? 2 : 4;
+
+      if(slotsFilled + requiredSlots > maxSlots) {
+        registrationMessage.textContent = "Sorry, slots are full.";
+        registrationMessage.className = "message error";
+        return;
       }
-      createTournMsg.className = "message success";
-      clearCreateTournamentForm();
-      await loadAdminTournaments();
-      await loadTournamentsForAdminSelect();
-      await loadTournamentsForUser();
-    } catch(e){
-      createTournMsg.textContent = "Error saving tournament: "+e.message;
-      createTournMsg.className = "message error";
+
+      await db.collection("registrations").add({
+        tournamentId: registrationTournament.id,
+        userId: currentUser.uid,
+        userEmail: currentUser.email,
+        ffIds,
+        phone,
+        utr,
+        screenshotUrl,
+        mode: registrationTournament.mode,
+        entryFee: registrationTournament.entryFee,
+        paymentStatus: "Pending",
+        createdAt: new Date().toISOString()
+      });
+
+      registrationMessage.textContent = "Registration successful!";
+      registrationMessage.className = "message success";
+      registrationModal.classList.add("hidden");
+      await loadUserRegistrations();
+      await loadTournaments();
+
+    } catch (e) {
+      registrationMessage.textContent = "Error: " + e.message;
+      registrationMessage.className = "message error";
     }
   };
 
-  function clearCreateTournamentForm(){
-    tournNameInput.value = "";
-    tournDateInput.value = "";
-    tournTimeInput.value = "";
-    tournModeSelect.value = "solo";
-    tournEntryFeeInput.value = "";
-    tournSlotLimitInput.value = "";
-    createTournBtn.textContent = "Create Tournament";
-    createTournMsg.textContent = "";
-    delete createTournBtn.dataset.editingId;
+  // --- LOAD USER REGISTRATIONS ---
+
+  async function loadUserRegistrations() {
+    if(!currentUser) return;
+    userRegistrationsTableBody.innerHTML = "";
+    try {
+      const snap = await db.collection("registrations")
+        .where("userId", "==", currentUser.uid)
+        .orderBy("createdAt", "desc")
+        .get();
+      if(snap.empty){
+        userRegistrationsTableBody.innerHTML = `<tr><td colspan="7" style="text-align:center;">No registrations found</td></tr>`;
+        return;
+      }
+      snap.forEach(docSnap => {
+        const reg = docSnap.data();
+        const ffList = reg.ffIds.join(", ");
+        userRegistrationsTableBody.innerHTML += `
+          <tr>
+            <td>${getTournamentName(reg.tournamentId)}</td>
+            <td>${reg.mode.toUpperCase()}</td>
+            <td>${ffList}</td>
+            <td>${reg.phone}</td>
+            <td>${reg.paymentStatus}</td>
+            <td>${reg.utr}</td>
+            <td>${reg.screenshotUrl ? `<a href="${reg.screenshotUrl}" target="_blank">View</a>` : "No"}</td>
+          </tr>
+        `;
+      });
+    } catch(e) {
+      userRegistrationsTableBody.innerHTML = `<tr><td colspan="7" style="color:#c0392b;">Error loading registrations</td></tr>`;
+    }
   }
 
-  // Load admin registrations for selected tournament
-  selectTournamentReg.onchange = async () => {
-    const tournId = selectTournamentReg.value;
-    adminRegistrationsTableBody.innerHTML = "";
-    if(!tournId) return;
+  // Cache tournaments by ID to show name
+  let tournamentCache = {};
 
-    const regSnap = await getDocs(query(collection(db,"registrations"), where("tournamentId","==",tournId)));
-    if(regSnap.empty){
-      adminRegistrationsTableBody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No registrations for this tournament.</td></tr>`;
-      return;
-    }
-
-    for(const regDoc of regSnap.docs){
-      const r = regDoc.data();
-      adminRegistrationsTableBody.innerHTML += `
-      <tr>
-        <td>${r.ffId}</td>
-        <td>${r.phone}</td>
-        <td>${r.utr}</td>
-        <td><a href="${r.screenshotUrl}" target="_blank">View</a></td>
-        <td>
-          <select data-id="${regDoc.id}" class="paymentStatusSelect">
-            <option value="Pending" ${r.paymentStatus==="Pending"?"selected":""}>Pending</option>
-            <option value="Approved" ${r.paymentStatus==="Approved"?"selected":""}>Approved</option>
-            <option value="Rejected" ${r.paymentStatus==="Rejected"?"selected":""}>Rejected</option>
-          </select>
-        </td>
-        <td><a href="https://wa.me/91${r.phone}" target="_blank">WhatsApp</a></td>
-      </tr>`;
-    }
-    // Payment status update event
-    document.querySelectorAll(".paymentStatusSelect").forEach(sel => {
-      sel.onchange = async () => {
-        const id = sel.dataset.id;
-        const val = sel.value;
-        try {
-          await updateDoc(doc(db,"registrations",id), { paymentStatus: val });
-        } catch(e) {
-          alert("Error updating payment status: "+e.message);
-          sel.value = (val === "Pending") ? "Pending" : (val === "Approved") ? "Approved" : "Rejected";
-        }
-      };
+  async function loadTournamentsCache() {
+    tournamentCache = {};
+    const snap = await db.collection("tournaments").get();
+    snap.forEach(doc => {
+      tournamentCache[doc.id] = doc.data();
     });
+  }
+
+  function getTournamentName(tId) {
+    return tournamentCache[tId]?.name || tId;
+  }
+
+  // --- LOAD ADMIN REGISTRATIONS ---
+
+  async function loadAllRegistrations() {
+    if(!isAdmin) return;
+    adminRegistrationsTableBody.innerHTML = "";
+    await loadTournamentsCache();
+    try {
+      const snap = await db.collection("registrations")
+        .orderBy("createdAt", "desc")
+        .get();
+      if(snap.empty){
+        adminRegistrationsTableBody.innerHTML = `<tr><td colspan="8" style="text-align:center;">No registrations found</td></tr>`;
+        return;
+      }
+      snap.forEach(docSnap => {
+        const reg = docSnap.data();
+        const ffList = reg.ffIds.join(", ");
+        adminRegistrationsTableBody.innerHTML += `
+          <tr>
+            <td>${getTournamentName(reg.tournamentId)}</td>
+            <td>${reg.userEmail}</td>
+            <td>${reg.mode.toUpperCase()}</td>
+            <td>${ffList}</td>
+            <td>${reg.phone}</td>
+            <td>${reg.paymentStatus}</td>
+            <td>${reg.utr}</td>
+            <td>${reg.screenshotUrl ? `<a href="${reg.screenshotUrl}" target="_blank">View</a>` : "No"}</td>
+          </tr>
+        `;
+      });
+    } catch(e){
+      adminRegistrationsTableBody.innerHTML = `<tr><td colspan="8" style="color:#c0392b;">Error loading registrations</td></tr>`;
+    }
+  }
+
+  // --- TOURNAMENT EDIT & DELETE (ADMIN) ---
+
+  // For simplicity, list tournaments below admin controls with edit/delete buttons
+
+  async function reloadTournamentListForAdmin() {
+    if(!isAdmin) return;
+    let listHtml = "<h3>Manage Tournaments</h3><table><thead><tr><th>Name</th><th>Date</th><th>Mode</th><th>Fee</th><th>Slots</th><th>Actions</th></tr></thead><tbody>";
+    try {
+      const snap = await db.collection("tournaments").orderBy("dateTime", "asc").get();
+      snap.forEach(doc => {
+        const d = doc.data();
+        listHtml += `<tr>
+          <td>${d.name}</td>
+          <td>${new Date(d.dateTime).toLocaleString()}</td>
+          <td>${d.mode.toUpperCase()}</td>
+          <td>₹${d.entryFee}</td>
+          <td>${d.slotLimit}</td>
+          <td>
+            <button onclick="editTournament('${doc.id}')">Edit</button>
+            <button onclick="deleteTournament('${doc.id}')">Delete</button>
+          </td>
+        </tr>`;
+      });
+      listHtml += "</tbody></table>";
+      adminControls.innerHTML += listHtml;
+    } catch (e) {
+      adminControls.innerHTML += `<p style="color:#c0392b;">Error loading tournaments for admin</p>`;
+    }
+  }
+
+  window.editTournament = async (id) => {
+    if(!isAdmin) return alert("Admin only.");
+    editTournamentId = id;
+    try {
+      const docSnap = await db.collection("tournaments").doc(id).get();
+      if(!docSnap.exists) return alert("Tournament not found.");
+      const data = docSnap.data();
+      tournamentNameInput.value = data.name;
+      tournamentDateInput.value = data.dateTime;
+      modeSelect.value = data.mode;
+      entryFeeInput.value = data.entryFee;
+      slotLimitInput.value = data.slotLimit;
+      tournamentFormMessage.textContent = "Editing tournament...";
+      tournamentFormMessage.className = "";
+      window.scrollTo(0,0);
+    } catch (e) {
+      alert("Error loading tournament: " + e.message);
+    }
   };
 
-  // Initialize
-  function init(){
-    // Nothing here yet
-  }
-  init();
+  window.deleteTournament = async (id) => {
+    if(!isAdmin) return alert("Admin only.");
+    if(!confirm("Are you sure you want to delete this tournament? This will remove all its registrations too.")) return;
+    try {
+      // Delete registrations of this tournament first
+      const regsSnap = await db.collection("registrations").where("tournamentId","==",id).get();
+      const batch = db.batch();
+      regsSnap.forEach(doc => batch.delete(doc.ref));
+      batch.delete(db.collection("tournaments").doc(id));
+      await batch.commit();
+      alert("Tournament and its registrations deleted.");
+      await loadTournaments();
+      await reloadTournamentListForAdmin();
+      await loadAllRegistrations();
+    } catch (e) {
+      alert("Error deleting tournament: " + e.message);
+    }
+  };
+
+  // Init
+  (async () => {
+    await loadTournaments();
+    await loadTournamentsCache();
+    if(isAdmin) {
+      reloadTournamentListForAdmin();
+    }
+  })();
 
 </script>
+
 </body>
 </html>
