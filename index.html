@@ -3,164 +3,174 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>FreeFire Tournament Login Demo</title>
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-  import { getFirestore, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyCAjiInmaJsHSqhlxZZ0heIdNEMu6m6Y6Y",
-    authDomain: "freefire-tournament-2009.firebaseapp.com",
-    projectId: "freefire-tournament-2009",
-    storageBucket: "freefire-tournament-2009.appspot.com",
-    messagingSenderId: "498357283098",
-    appId: "1:498357283098:web:2f05123efe6c57e65524a3"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-  const adminEmail = "avinashnaruka89@gmail.com";
-
-  // Elements
-  let loginDiv, userDiv, adminDiv, signupDiv, messageDiv;
-
-  window.onload = () => {
-    loginDiv = document.getElementById("loginDiv");
-    signupDiv = document.getElementById("signupDiv");
-    userDiv = document.getElementById("userDiv");
-    adminDiv = document.getElementById("adminDiv");
-    messageDiv = document.getElementById("message");
-
-    // Show login/signup initially
-    showLogin();
-
-    // Auth state observer
-    onAuthStateChanged(auth, user => {
-      if (user) {
-        // logged in
-        if (user.email === adminEmail) {
-          showAdmin(user);
-        } else {
-          showUser(user);
-        }
-      } else {
-        // logged out
-        showLogin();
-      }
-    });
-  };
-
-  function showLogin() {
-    loginDiv.style.display = "block";
-    signupDiv.style.display = "block";
-    userDiv.style.display = "none";
-    adminDiv.style.display = "none";
-    messageDiv.textContent = "";
-  }
-
-  function showUser(user) {
-    loginDiv.style.display = "none";
-    signupDiv.style.display = "none";
-    userDiv.style.display = "block";
-    adminDiv.style.display = "none";
-    messageDiv.textContent = `Welcome, ${user.email}`;
-  }
-
-  function showAdmin(user) {
-    loginDiv.style.display = "none";
-    signupDiv.style.display = "none";
-    userDiv.style.display = "none";
-    adminDiv.style.display = "block";
-    messageDiv.textContent = `Welcome Admin, ${user.email}`;
-  }
-
-  window.login = async () => {
-    const email = document.getElementById("loginEmail").value;
-    const password = document.getElementById("loginPass").value;
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      messageDiv.textContent = "Logged in!";
-    } catch (e) {
-      messageDiv.textContent = "Login failed: " + e.message;
-    }
-  };
-
-  window.signup = async () => {
-    const email = document.getElementById("signupEmail").value;
-    const password = document.getElementById("signupPass").value;
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      messageDiv.textContent = "Account created! Please login.";
-    } catch (e) {
-      messageDiv.textContent = "Signup failed: " + e.message;
-    }
-  };
-
-  window.logout = async () => {
-    await signOut(auth);
-    messageDiv.textContent = "Logged out.";
-  };
-
-  // Example admin function to create tournament
-  window.createTournament = async () => {
-    const name = document.getElementById("tName").value;
-    const date = document.getElementById("tDate").value;
-    const fee = Number(document.getElementById("tFee").value);
-    const slots = Number(document.getElementById("tSlots").value);
-    if (!name || !date || !fee || !slots) {
-      alert("Fill all fields!");
-      return;
-    }
-    try {
-      await addDoc(collection(db, "tournaments"), { name, date, fee, slots });
-      alert("Tournament created!");
-    } catch (e) {
-      alert("Error: " + e.message);
-    }
-  };
-</script>
+<title>FreeFire Tournament Booking</title>
 <style>
-  #loginDiv, #signupDiv, #userDiv, #adminDiv { margin: 20px; }
-  #message { margin: 10px; font-weight: bold; }
+  body { font-family: Arial, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
+  .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);}
+  h1 { text-align: center; }
+  label { display: block; margin-top: 15px; font-weight: bold; }
+  input, select, button { width: 100%; padding: 10px; margin-top: 5px; font-size: 16px; border-radius: 6px; border: 1px solid #ccc; }
+  button { background: #007bff; color: white; border: none; cursor: pointer; }
+  button:disabled { background: #aaa; cursor: not-allowed; }
+  .qr-container { text-align: center; margin-top: 20px; }
+  .qr-container img { width: 180px; height: 180px; }
+  .message { margin-top: 20px; font-weight: bold; color: green; text-align: center; }
+  .error { color: red; font-weight: bold; }
 </style>
 </head>
 <body>
 
-<div id="loginDiv">
-  <h2>Login</h2>
-  <input id="loginEmail" type="email" placeholder="Email" /><br />
-  <input id="loginPass" type="password" placeholder="Password" /><br />
-  <button onclick="login()">Login</button>
+<div class="container">
+  <h1>FreeFire Tournament Booking</h1>
+
+  <label for="tournamentName">Tournament Name</label>
+  <input type="text" id="tournamentName" placeholder="Enter tournament name" />
+
+  <label for="squadType">Select Squad Type</label>
+  <select id="squadType">
+    <option value="solo" data-multiplier="1">Solo (1 Player) - ₹20</option>
+    <option value="duo" data-multiplier="2">Duo (2 Players) - ₹40</option>
+    <option value="squad" data-multiplier="4">Squad (4 Players) - ₹80</option>
+  </select>
+
+  <label for="playerName">Your Name</label>
+  <input type="text" id="playerName" placeholder="Enter your name" />
+
+  <label for="freefireID">Free Fire ID</label>
+  <input type="text" id="freefireID" placeholder="Enter your Free Fire ID" />
+
+  <label for="phone">Phone Number (for WhatsApp updates)</label>
+  <input type="tel" id="phone" placeholder="Enter phone number" />
+
+  <label for="paymentProof">Upload Payment Screenshot (optional)</label>
+  <input type="file" id="paymentProof" accept="image/*" />
+
+  <label for="utr">Enter UTR / Transaction ID (optional)</label>
+  <input type="text" id="utr" placeholder="Enter UTR/Transaction ID" />
+
+  <div style="margin-top: 15px;">
+    <button id="payButton">Pay Now & Register ₹20</button>
+  </div>
+
+  <div id="upiSection" style="margin-top: 25px; text-align: center;">
+    <p>Pay using UPI ID:</p>
+    <p style="font-weight: bold; font-size: 1.2em;">7976726014@axl</p>
+    <div id="qrCode" class="qr-container"></div>
+  </div>
+
+  <div id="message" class="message"></div>
 </div>
 
-<div id="signupDiv">
-  <h2>Sign Up</h2>
-  <input id="signupEmail" type="email" placeholder="Email" /><br />
-  <input id="signupPass" type="password" placeholder="Password" /><br />
-  <button onclick="signup()">Create Account</button>
-</div>
+<script>
+  const maxSquads = 12;
+  const playersPerSquad = 4;
+  let bookedPlayers = 0;
+  const baseAmountPerPlayer = 20;
 
-<div id="userDiv" style="display:none;">
-  <h2>User Dashboard</h2>
-  <button onclick="logout()">Logout</button>
-  <p>Yahan user apni registered tournaments dekh sakta hai (abhi demo me nahi hai)</p>
-</div>
+  const payButton = document.getElementById('payButton');
+  const squadType = document.getElementById('squadType');
+  const playerName = document.getElementById('playerName');
+  const freefireID = document.getElementById('freefireID');
+  const phone = document.getElementById('phone');
+  const paymentProof = document.getElementById('paymentProof');
+  const utr = document.getElementById('utr');
+  const messageDiv = document.getElementById('message');
+  const qrCodeDiv = document.getElementById('qrCode');
+  const upiSection = document.getElementById('upiSection');
+  const tournamentNameInput = document.getElementById('tournamentName');
 
-<div id="adminDiv" style="display:none;">
-  <h2>Admin Dashboard</h2>
-  <button onclick="logout()">Logout</button>
-  <h3>Create Tournament</h3>
-  <input id="tName" placeholder="Tournament Name" /><br />
-  <input id="tDate" type="datetime-local" /><br />
-  <input id="tFee" type="number" placeholder="Entry Fee" /><br />
-  <input id="tSlots" type="number" placeholder="Slots" /><br />
-  <button onclick="createTournament()">Create Tournament</button>
-</div>
+  const upiID = "7976726014@axl";
 
-<div id="message"></div>
+  function isMobile() {
+    return /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+  }
+
+  function getSlotsForSquad(type) {
+    switch(type) {
+      case 'solo': return 1;
+      case 'duo': return 2;
+      case 'squad': return 4;
+      default: return 1;
+    }
+  }
+
+  function updateAmount() {
+    const selectedOption = squadType.options[squadType.selectedIndex];
+    const multiplier = Number(selectedOption.getAttribute('data-multiplier'));
+    const amount = baseAmountPerPlayer * multiplier;
+    payButton.textContent = `Pay Now & Register ₹${amount}`;
+    updatePaymentUI(amount);
+    return amount;
+  }
+
+  function updatePaymentUI(amount) {
+    const upiURL = `upi://pay?pa=${upiID}&pn=Avinash%20Naruka&am=${amount}&cu=INR`;
+    if (isMobile()) {
+      qrCodeDiv.innerHTML = '';
+      upiSection.style.textAlign = "center";
+      messageDiv.innerHTML = 'Click "Pay Now & Register" to open UPI app.';
+      payButton.dataset.upiurl = upiURL;  // save for click handler
+    } else {
+      qrCodeDiv.innerHTML = '';
+      let qrImg = document.createElement('img');
+      qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(upiURL)}`;
+      qrCodeDiv.appendChild(qrImg);
+      messageDiv.innerHTML = `Scan QR code with your UPI app to pay ₹${amount}.`;
+    }
+  }
+
+  squadType.addEventListener('change', () => {
+    updateAmount();
+  });
+
+  payButton.addEventListener('click', () => {
+    const tName = tournamentNameInput.value.trim();
+    const squad = squadType.value;
+    const name = playerName.value.trim();
+    const ffid = freefireID.value.trim();
+    const ph = phone.value.trim();
+
+    if (!tName || !name || !ffid || !ph) {
+      messageDiv.innerHTML = '<span class="error">Please fill all mandatory fields!</span>';
+      return;
+    }
+
+    const slotCount = getSlotsForSquad(squad);
+    if (bookedPlayers + slotCount > maxSquads * playersPerSquad) {
+      messageDiv.innerHTML = '<span class="error">Tournament is full! Booking closed.</span>';
+      payButton.disabled = true;
+      return;
+    }
+
+    if (isMobile()) {
+      // open UPI app with amount fixed
+      const upiURL = payButton.dataset.upiurl;
+      window.location.href = upiURL;
+    } else {
+      alert('Please scan the QR code to pay.');
+    }
+
+    // For demo: mark registration done here, in real app store in backend/db
+    bookedPlayers += slotCount;
+    messageDiv.innerHTML = `<span style="color:green;">Registered ${slotCount} player(s) for "${tName}" tournament!</span>`;
+
+    // Clear form
+    playerName.value = '';
+    freefireID.value = '';
+    phone.value = '';
+    paymentProof.value = '';
+    utr.value = '';
+
+    // Disable button if full
+    if(bookedPlayers >= maxSquads * playersPerSquad) {
+      payButton.disabled = true;
+      messageDiv.innerHTML += '<br>Tournament is now full. Booking closed.';
+    }
+  });
+
+  // initialize amount & UI on page load
+  updateAmount();
+</script>
 
 </body>
 </html>
