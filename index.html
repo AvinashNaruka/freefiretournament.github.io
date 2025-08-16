@@ -1,85 +1,76 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Free Fire Tournament Manager</title>
-<style>
-  :root{--bg1:#0f172a;--bg2:#0b1020;--card:#0f1b2d;--muted:#9fb3c8;--brand:#f59e0b;--accent:#22d3ee;--ok:#22c55e;--err:#ef4444;}
-  body{margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:#e6eef8}
-  .wrap{max-width:1100px;margin:24px auto;padding:18px}
-  .card{background:rgba(15,27,45,.9);border:1px solid rgba(255,255,255,.06);box-shadow:0 10px 40px rgba(2,6,23,.35);border-radius:16px;padding:18px}
-  h1,h2,h3{margin:0 0 8px 0;font-weight:800}
-  h1{font-size:28px}
-  h2{font-size:22px;color:var(--accent)}
-  h3{font-size:18px;color:var(--brand)}
-  .muted{color:var(--muted);font-size:14px}
-  .row{display:flex;gap:16px;flex-wrap:wrap}
-  .col{flex:1;min-width:280px}
-  label{display:block;font-size:13px;color:#cbd5e1;margin-top:10px}
-  input,select,textarea,button{width:100%;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:#0b1626;color:#e6eef8;outline:none}
-  button{cursor:pointer;background:linear-gradient(135deg,var(--brand),#ffd166);color:#111827;font-weight:800;border:none;box-shadow:0 8px 24px rgba(245,158,11,.25);transition:transform .05s ease}
-  button:hover{transform:translateY(-1px)}
-  .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.16);color:#e6eef8;box-shadow:none}
-  .btn-ok{background:linear-gradient(135deg,#16a34a,#86efac);color:#07240f}
-  .btn-err{background:linear-gradient(135deg,#ef4444,#fda4af);color:#2a0608}
-  .btn-row{display:flex;gap:10px;flex-wrap:wrap}
-  table{width:100%;border-collapse:collapse;margin-top:10px}
-  th,td{border-bottom:1px dashed rgba(255,255,255,.08);padding:10px;text-align:left;font-size:14px}
-  th{color:#cbd5e1;font-weight:700}
-  tr:hover td{background:rgba(255,255,255,.02)}
-  .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.12);font-size:12px}
-  .admin{background:rgba(34,211,238,.08);border-color:rgba(34,211,238,.25)}
-  .pill{display:inline-block;padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.06);font-size:12px}
-  .hidden{display:none}
-  .qrbox{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
-  #qr{background:#fff;padding:10px;border-radius:12px}
-  .footer{margin-top:18px;text-align:center;color:#9fb3c8;font-size:12px}
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Free Fire Tournament</title>
+  <style>
+    :root{
+      --bg1:#0f172a; --bg2:#0b1020; --card:#0f1b2d; --muted:#9fb3c8; --brand:#f59e0b; --accent:#22d3ee; --ok:#22c55e; --err:#ef4444;
+    }
+    body{margin:0;font-family:Inter,system-ui,Roboto,Arial;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:#e6eef8}
+    .wrap{max-width:1100px;margin:24px auto;padding:18px}
+    .card{background:rgba(15,27,45,.9);border:1px solid rgba(255,255,255,.06);box-shadow:0 10px 40px rgba(2,6,23,.35);border-radius:16px;padding:18px}
+    h1,h2,h3{margin:0 0 8px 0;font-weight:800}
+    h1{font-size:28px;color:#fff}
+    h2{font-size:22px;color:var(--accent)}
+    h3{font-size:18px;color:var(--brand)}
+    .muted{color:var(--muted);font-size:14px}
+
+    .row{display:flex;gap:16px;flex-wrap:wrap}
+    .col{flex:1;min-width:280px}
+
+    label{display:block;font-size:13px;color:#cbd5e1;margin-top:10px}
+    input,select,button{width:100%;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.08);background:#0b1626;color:#e6eef8;outline:none}
+    button{cursor:pointer;background:linear-gradient(135deg,var(--brand),#ffd166);color:#111827;font-weight:800;border:none;box-shadow:0 8px 24px rgba(245,158,11,.25)}
+    button:hover{opacity:0.9}
+    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,.16);color:#e6eef8}
+    .btn-ok{background:linear-gradient(135deg,#16a34a,#86efac);color:#07240f}
+    .btn-err{background:linear-gradient(135deg,#ef4444,#fda4af);color:#2a0608}
+    .btn-row{display:flex;gap:10px;flex-wrap:wrap}
+
+    table{width:100%;border-collapse:collapse;margin-top:10px}
+    th,td{border-bottom:1px dashed rgba(255,255,255,.08);padding:8px;text-align:left;font-size:14px}
+    th{color:#cbd5e1}
+
+    .badge{padding:6px 10px;border-radius:999px;font-size:12px}
+    .admin{background:rgba(34,211,238,.2);color:#22d3ee}
+    .pill{padding:3px 8px;border-radius:999px;background:rgba(255,255,255,.06);font-size:12px}
+
+    .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    .hidden{display:none}
+    .footer{margin-top:18px;text-align:center;color:#9fb3c8;font-size:12px}
+  </style>
 </head>
 <body>
 <div class="wrap">
   <div class="card">
-    <div class="row" style="justify-content:space-between;align-items:flex-start">
+    <div class="topbar">
+      <h1>Free Fire Tournament</h1>
       <div>
-        <h1>Free Fire Tournament Manager</h1>
-        <div class="muted">Single-file • Firebase • UPI + UTR • GitHub Pages Ready</div>
-      </div>
-      <div style="text-align:right">
         <div id="whoami" class="muted">Not logged in</div>
-        <div class="btn-row" style="margin-top:8px">
+        <div class="btn-row" style="margin-top:6px">
           <button id="btnLogin">Login</button>
-          <button id="btnSignup" class="btn-ghost">Sign up</button>
+          <button id="btnSignup" class="btn-ghost">Signup</button>
           <button id="btnLogout" class="hidden">Logout</button>
         </div>
-        <div style="margin-top:6px">
-          <span id="adminBadge" class="badge admin hidden">Admin</span>
-        </div>
+        <span id="adminBadge" class="badge admin hidden">Admin</span>
       </div>
     </div>
 
-    !-- AUTH -->
+    <!-- AUTH FORM -->
     <div id="authBox" class="row">
       <div class="col">
         <h2>Sign in</h2>
         <label>Email</label>
-        <input id="email" type="email" placeholder="your@email.com" autocomplete="username"/>
+        <input id="email" type="email" placeholder="your@email.com" />
         <label>Password</label>
-        <input id="password" type="password" placeholder="••••••••" autocomplete="current-password"/>
+        <input id="password" type="password" placeholder="••••••••" />
         <div class="btn-row" style="margin-top:10px">
           <button id="doLogin">Login</button>
           <button id="doSignup" class="btn-ghost">Create account</button>
         </div>
-        <div id="authMsg" class="muted" style="margin-top:8px"></div>
-      </div>
-      <div class="col">
-        <h3>Support</h3>
-        <p class="muted">/WhatsApp:</p>
-        <div class="btn-row">
-          <a class="muted" href="tel:7976726014">📞 7976726014</a>
-          <a class="muted" target="_blank" href="https://wa.me/919776726014">💬 WhatsApp</a>
-        </div>
-        <p class="muted" style="margin-top:10px">Admin email: <code>avinashnaruka89@gmail.com</code></p>
+        <div id="authMsg" class="muted" style="margin-top:6px"></div>
       </div>
     </div>
 
@@ -213,40 +204,43 @@ const adminPanel=document.getElementById("adminPanel");
 const adminSel=document.getElementById("adminSel");
 const adminRegBox=document.getElementById("adminRegBox");
 
-// Auth
-doSignup.onclick=()=>{
-  auth.createUserWithEmailAndPassword(emailEl.value,passEl.value)
-  .then(()=>authMsg.innerText="Signup successful, please login")
-  .catch(e=>authMsg.innerText=e.message);
-};
-doLogin.onclick=()=>{
-  auth.signInWithEmailAndPassword(emailEl.value,passEl.value)
-  .catch(e=>authMsg.innerText=e.message);
-};
-btnLogout.onclick=()=>auth.signOut();
+<!-- Login / Signup -->
+<script>
+const emailEl = document.getElementById("email");
+const passEl = document.getElementById("password");
+const doLogin = document.getElementById("doLogin");
+const doSignup = document.getElementById("doSignup");
+const authMsg = document.getElementById("authMsg");
 
-auth.onAuthStateChanged(u=>{
-  if(u){
-    whoami.innerText=u.email;
-    authBox.classList.add("hidden");
-    app.classList.remove("hidden");
-    btnLogout.classList.remove("hidden");
-    if(u.email===adminEmail){
-      adminBadge.classList.remove("hidden");
-      adminPanel.classList.remove("hidden");
+doSignup.onclick = async () => {
+  try {
+    await auth.createUserWithEmailAndPassword(emailEl.value, passEl.value);
+    authMsg.innerText = "Signup successful ✅, please login now.";
+  } catch (e) {
+    if (e.code === "auth/email-already-in-use") {
+      authMsg.innerText = "⚠️ Ye email already registered hai, bas login karo.";
+    } else if (e.code === "auth/weak-password") {
+      authMsg.innerText = "⚠️ Password kam se kam 6 characters ka hona chahiye.";
     } else {
-      adminBadge.classList.add("hidden");
-      adminPanel.classList.add("hidden");
+      authMsg.innerText = "Error: " + e.message;
     }
-    loadTournaments();
-    loadMyRegs();
-  } else {
-    whoami.innerText="Not logged in";
-    authBox.classList.remove("hidden");
-    app.classList.add("hidden");
-    btnLogout.classList.add("hidden");
   }
-});
+};
+
+doLogin.onclick = async () => {
+  try {
+    await auth.signInWithEmailAndPassword(emailEl.value, passEl.value);
+    authMsg.innerText = "Login successful ✅";
+  } catch (e) {
+    if (e.code === "auth/wrong-password") {
+      authMsg.innerText = "⚠️ Galat password dala h.";
+    } else if (e.code === "auth/user-not-found") {
+      authMsg.innerText = "⚠️ Ye email registered nahi h, pehle signup karo.";
+    } else {
+      authMsg.innerText = "Error: " + e.message;
+    }
+  }
+};
 
 // Create Tournament
 btnSaveT.onclick=async()=>{
@@ -366,4 +360,3 @@ async function rejectReg(tid,rid){ await db.collection("tournaments").doc(tid).c
 </script>
 </body>
 </html>
-
