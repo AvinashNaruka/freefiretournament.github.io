@@ -3,206 +3,204 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Free Fire Tournament Manager</title>
+  <title>Free Fire Tournament</title>
   <style>
-    body{margin:0;font-family:Arial;background:#0f172a;color:#e6eef8}
+    body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#0f172a;color:#e6eef8}
     .wrap{max-width:1100px;margin:24px auto;padding:18px}
-    .card{background:#1e293b;border-radius:12px;padding:18px;margin-bottom:20px}
-    h1{font-size:24px;margin:0 0 10px 0}
-    label{display:block;margin-top:10px}
-    input,select,button{width:100%;padding:10px;margin-top:5px;border-radius:6px;border:none}
-    input,select{background:#0f172a;color:#e6eef8}
-    button{cursor:pointer;background:#f59e0b;color:#111;font-weight:bold}
-    .btn-ghost{background:#334155;color:#fff}
-    .btn-ok{background:#16a34a;color:#fff}
-    .btn-err{background:#ef4444;color:#fff}
+    .card{background:#1e293b;border-radius:12px;padding:18px;margin-bottom:16px}
+    h1{font-size:24px;margin:0 0 12px}
+    h2{font-size:20px;margin:0 0 8px;color:#38bdf8}
+    label{display:block;margin-top:8px;font-size:14px}
+    input,select,button{width:100%;padding:10px;margin-top:4px;border-radius:8px;border:none}
+    input,select{background:#0f172a;color:#fff}
+    button{background:#fbbf24;color:#111;font-weight:bold;cursor:pointer}
+    table{width:100%;border-collapse:collapse;margin-top:12px}
+    th,td{padding:8px;border-bottom:1px solid #334155;text-align:left}
+    .btn{padding:6px 10px;border-radius:6px;cursor:pointer}
+    .approve{background:#22c55e;color:#fff}
+    .reject{background:#ef4444;color:#fff}
     .hidden{display:none}
-    table{width:100%;border-collapse:collapse;margin-top:10px}
-    th,td{padding:8px;border-bottom:1px solid #334155}
-    .pill{padding:2px 8px;background:#334155;border-radius:999px;font-size:12px}
-    .link{color:#38bdf8;text-decoration:none}
+    #qr{background:#fff;padding:8px;border-radius:8px}
   </style>
 </head>
 <body>
-<div class="wrap">
-
-  <div class="card">
-    <h1>Free Fire Tournament Manager</h1>
-    <div id="whoami">Not logged in</div>
-    <div style="margin-top:10px">
-      <button id="btnLogin">Login</button>
-      <button id="btnSignup" class="btn-ghost">Sign up</button>
-      <button id="btnLogout" class="hidden">Logout</button>
-    </div>
-    <div id="adminBadge" class="hidden">[Admin]</div>
-  </div>
-
-  <!-- AUTH BOX -->
-  <div id="authBox" class="card">
-    <h2>Sign in</h2>
-    <label>Email</label>
-    <input id="email" type="email" placeholder="your@email.com"/>
-    <label>Password</label>
-    <input id="password" type="password" placeholder="********"/>
-    <div style="margin-top:10px">
-      <button id="doLogin">Login</button>
-      <button id="doSignup" class="btn-ghost">Create account</button>
-    </div>
-    <div id="authMsg" style="margin-top:8px;color:#f87171"></div>
-  </div>
-
-  <!-- APP -->
-  <div id="app" class="hidden">
+  <div class="wrap">
     <div class="card">
-      <h2>Register for Tournament</h2>
+      <h1>Free Fire Tournament</h1>
+      <div id="whoami">Not logged in</div>
+      <div>
+        <input id="email" placeholder="Email">
+        <input id="password" type="password" placeholder="Password">
+        <button id="loginBtn">Login</button>
+        <button id="signupBtn">Signup</button>
+        <button id="logoutBtn" class="hidden">Logout</button>
+      </div>
+    </div>
+
+    <!-- Admin panel -->
+    <div class="card hidden" id="adminPanel">
+      <h2>Admin - Create Tournament</h2>
+      <input id="tName" placeholder="Tournament Name">
+      <input id="tDate" type="datetime-local">
+      <select id="tMode">
+        <option value="solo">Solo</option>
+        <option value="duo">Duo</option>
+        <option value="squad">Squad</option>
+      </select>
+      <input id="tSlots" type="number" placeholder="Slots">
+      <input id="tFee" type="number" placeholder="Entry Fee (per player)">
+      <button id="saveTournament">Save Tournament</button>
+      <div id="tournaments"></div>
+    </div>
+
+    <!-- User Registration -->
+    <div class="card hidden" id="userPanel">
+      <h2>Register</h2>
       <label>Tournament</label>
       <select id="selTournament"></select>
-      <div id="tInfo"></div>
-
-      <label>Team / Player Name</label>
-      <input id="rTeamName" placeholder="Team Phoenix"/>
+      <label>Team/Player Name</label>
+      <input id="teamName">
       <div id="ffFields"></div>
-
       <label>WhatsApp Number</label>
-      <input id="rPhone" placeholder="10 digit number"/>
+      <input id="phone">
+      <label>UTR</label>
+      <input id="utr">
+      <button id="payBtn">Pay Now</button>
+      <div id="qr"></div>
+      <button id="registerBtn">Submit Registration</button>
+      <div id="regMsg"></div>
+    </div>
 
-      <label>UTR / Transaction ID</label>
-      <input id="rUTR" placeholder="12+ digit UTR"/>
-
-      <div style="margin-top:10px">
-        <button id="btnRegister" class="btn-ok">Submit Registration</button>
-      </div>
-      <div id="regMsg" style="margin-top:8px"></div>
+    <!-- Admin Approvals -->
+    <div class="card hidden" id="adminRegs">
+      <h2>Registrations</h2>
+      <select id="adminSel"></select>
+      <div id="regList"></div>
     </div>
 
     <div class="card">
-      <h2>My Registrations</h2>
-      <div id="myRegs">—</div>
-    </div>
-
-    <div id="adminPanel" class="card hidden">
-      <h2>Admin Panel</h2>
-      <label>Pick Tournament</label>
-      <select id="adminSel"></select>
-      <div id="adminRegBox" style="margin-top:10px">—</div>
+      Contact: <a href="tel:7976726014">7976726014</a> | 
+      <a href="https://wa.me/919776726014">WhatsApp</a>
     </div>
   </div>
-</div>
 
-<!-- Firebase -->
-<script type="module">
-  const ADMIN_EMAIL = "avinashnaruka89@gmail.com";
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+    import { getFirestore, collection, addDoc, getDocs, doc, getDoc, updateDoc, deleteDoc, query, where } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-  import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-  import { getFirestore, collection, doc, addDoc, getDocs, getDoc, updateDoc, query, where, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+    const firebaseConfig = {
+      apiKey: "AIzaSyCAjiInmaJsHSqhlxZZ0heIdNEMu6m6Y6Y",
+      authDomain: "freefire-tournament-2009.firebaseapp.com",
+      projectId: "freefire-tournament-2009",
+      storageBucket: "freefire-tournament-2009.appspot.com",
+      messagingSenderId: "498357283098",
+      appId: "1:498357283098:web:2f05123efe6c57e65524a3"
+    };
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCAjiInmaJsHSqhlxZZ0heIdNEMu6m6Y6Y",
-    authDomain: "freefire-tournament-2009.firebaseapp.com",
-    projectId: "freefire-tournament-2009",
-    storageBucket: "freefire-tournament-2009.appspot.com",
-    messagingSenderId: "498357283098",
-    appId: "1:498357283098:web:2f05123efe6c57e65524a3"
-  };
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
 
-  // helpers
-  const $ = id => document.getElementById(id);
+    const ADMIN_EMAIL = "avinashnaruka89@gmail.com";
+    const UPI_PHONEPE = "7976726014@axl";
+    const UPI_GPAY = "avinashnaruka89@okicici";
 
-  let currentUser=null, isAdmin=false;
+    const $ = id => document.getElementById(id);
 
-  // Auth
-  $("doLogin").addEventListener("click", async ()=>{
-    try{
-      await signInWithEmailAndPassword(auth, $("email").value, $("password").value);
-      $("authMsg").textContent="Logged in ✔️";
-    }catch(e){
-      if(e.code==="auth/wrong-password") $("authMsg").textContent="Invalid password ❌";
-      else if(e.code==="auth/user-not-found") $("authMsg").textContent="No user found ❌";
-      else $("authMsg").textContent=e.message;
-    }
-  });
+    // login/signup
+    $("loginBtn").onclick=()=>signInWithEmailAndPassword(auth,$("email").value,$("password").value);
+    $("signupBtn").onclick=()=>createUserWithEmailAndPassword(auth,$("email").value,$("password").value);
+    $("logoutBtn").onclick=()=>signOut(auth);
 
-  $("doSignup").addEventListener("click", async ()=>{
-    try{
-      await createUserWithEmailAndPassword(auth, $("email").value, $("password").value);
-      $("authMsg").textContent="Account created ✔️, logged in.";
-    }catch(e){
-      if(e.code==="auth/email-already-in-use") $("authMsg").textContent="Email already in use ❌";
-      else $("authMsg").textContent=e.message;
-    }
-  });
+    let currentUser=null,isAdmin=false;
 
-  $("btnLogout").addEventListener("click", ()=>signOut(auth));
-
-  onAuthStateChanged(auth, async (user)=>{
-    currentUser=user; isAdmin=(user && user.email===ADMIN_EMAIL);
-    $("whoami").textContent=user? user.email:"Not logged in";
-    $("authBox").classList.toggle("hidden", !!user);
-    $("app").classList.toggle("hidden", !user);
-    $("btnLogout").classList.toggle("hidden", !user);
-    $("adminBadge").classList.toggle("hidden", !isAdmin);
-    $("adminPanel").classList.toggle("hidden", !isAdmin);
-    if(user){ await loadTournaments(); await loadMyRegs(); }
-  });
-
-  // Tournament dummy loader
-  async function loadTournaments(){
-    $("selTournament").innerHTML='<option value="t1">Sunday Clash</option>';
-    $("adminSel").innerHTML='<option value="t1">Sunday Clash</option>';
-    $("tInfo").textContent="Sunday Clash • Entry ₹20";
-    buildFFInputs(4);
-  }
-  function buildFFInputs(cnt){
-    $("ffFields").innerHTML="";
-    for(let i=1;i<=cnt;i++){
-      $("ffFields").innerHTML+=`<label>Free Fire ID #${i}</label><input class="ffid">`;
-    }
-  }
-
-  $("btnRegister").addEventListener("click", async ()=>{
-    try{
-      const tid=$("selTournament").value;
-      const name=$("rTeamName").value.trim();
-      const phone=$("rPhone").value.trim();
-      const utr=$("rUTR").value.trim();
-      if(!name||!phone||!utr) throw new Error("Fill all fields");
-      const payload={tournamentId:tid,userId:currentUser.uid,teamName:name,phone,utr,status:"pending",createdAt:serverTimestamp()};
-      await addDoc(collection(db,"registrations"),payload);
-      $("regMsg").textContent="Registration submitted ✔️";
-      await loadMyRegs();
-    }catch(e){ $("regMsg").textContent="Error: "+e.message; }
-  });
-
-  async function loadMyRegs(){
-    const q=query(collection(db,"registrations"),where("userId","==",currentUser.uid));
-    const snap=await getDocs(q);
-    if(snap.empty){ $("myRegs").textContent="No registrations yet"; return;}
-    let html="<table><tr><th>Team</th><th>Phone</th><th>UTR</th><th>Status</th></tr>";
-    snap.forEach(d=>{const r=d.data();html+=`<tr><td>${r.teamName}</td><td>${r.phone}</td><td>${r.utr}</td><td>${r.status}</td></tr>`});
-    html+="</table>"; $("myRegs").innerHTML=html;
-  }
-
-  $("adminSel").addEventListener("change", loadAdminRegs);
-  async function loadAdminRegs(){
-    const tid=$("adminSel").value;
-    const q=query(collection(db,"registrations"),where("tournamentId","==",tid));
-    const snap=await getDocs(q);
-    if(snap.empty){$("adminRegBox").textContent="No registrations";return;}
-    let html="<table><tr><th>Team</th><th>Phone</th><th>UTR</th><th>Status</th><th>Actions</th></tr>";
-    snap.forEach(d=>{
-      const r={id:d.id,...d.data()};
-      html+=`<tr><td>${r.teamName}</td><td>${r.phone}</td><td>${r.utr}</td><td>${r.status}</td>
-      <td><button onclick="approve('${r.id}')">Approve</button>
-      <button onclick="reject('${r.id}')">Reject</button></td></tr>`;
+    onAuthStateChanged(auth,u=>{
+      currentUser=u;
+      $("whoami").textContent=u?u.email:"Not logged in";
+      isAdmin=(u&&u.email===ADMIN_EMAIL);
+      $("logoutBtn").classList.toggle("hidden",!u);
+      $("adminPanel").classList.toggle("hidden",!isAdmin);
+      $("adminRegs").classList.toggle("hidden",!isAdmin);
+      $("userPanel").classList.toggle("hidden",!u);
+      loadTournaments();
+      if(isAdmin) loadRegs();
     });
-    html+="</table>"; $("adminRegBox").innerHTML=html;
-  }
-  window.approve=async(id)=>{await updateDoc(doc(db,"registrations",id),{status:"approved"});loadAdminRegs();}
-  window.reject=async(id)=>{await updateDoc(doc(db,"registrations",id),{status:"rejected"});loadAdminRegs();}
-</script>
+
+    // create tournament
+    $("saveTournament").onclick=async()=>{
+      await addDoc(collection(db,"tournaments"),{
+        name:$("tName").value,date:$("tDate").value,mode:$("tMode").value,
+        slots:+$("tSlots").value,fee:+$("tFee").value,closed:false
+      });
+      loadTournaments();
+    };
+
+    async function loadTournaments(){
+      const snap=await getDocs(collection(db,"tournaments"));
+      $("selTournament").innerHTML="";
+      $("tournaments").innerHTML="";
+      $("adminSel").innerHTML="";
+      snap.forEach(d=>{
+        const t={id:d.id,...d.data()};
+        $("selTournament").innerHTML+=`<option value="${t.id}">${t.name}</option>`;
+        $("adminSel").innerHTML+=`<option value="${t.id}">${t.name}</option>`;
+        $("tournaments").innerHTML+=`<div>${t.name} (${t.mode})</div>`;
+      });
+      buildFFInputs();
+    }
+
+    function buildFFInputs(){
+      const mode=$("tMode").value;
+      const size=mode==="solo"?1:mode==="duo"?2:4;
+      $("ffFields").innerHTML="";
+      for(let i=1;i<=size;i++){
+        $("ffFields").innerHTML+=`<label>FF ID ${i}</label><input class="ffid">`;
+      }
+    }
+    $("tMode").onchange=buildFFInputs;
+
+    $("payBtn").onclick=()=>{
+      const amt=20;
+      const vpa=UPI_PHONEPE;
+      const link=`upi://pay?pa=${vpa}&pn=Avinash&am=${amt}&cu=INR`;
+      if(/Android|iPhone/i.test(navigator.userAgent)) location.href=link;
+      else QRCode.toCanvas(document.createElement("canvas"),link,{width:200},(e,c)=>{$("qr").innerHTML="";$("qr").appendChild(c)});
+    };
+
+    $("registerBtn").onclick=async()=>{
+      const tid=$("selTournament").value;
+      const ff=[...document.querySelectorAll(".ffid")].map(i=>i.value);
+      await addDoc(collection(db,"registrations"),{
+        tid,team:$("teamName").value,phone:$("phone").value,utr:$("utr").value,ff,status:"pending"
+      });
+      $("regMsg").textContent="Submitted ✔";
+      if(isAdmin) loadRegs();
+    };
+
+    async function loadRegs(){
+      const tid=$("adminSel").value;
+      if(!tid){$("regList").innerHTML="";return;}
+      const q=query(collection(db,"registrations"),where("tid","==",tid));
+      const snap=await getDocs(q);
+      let html="<table><tr><th>Team</th><th>Phone</th><th>UTR</th><th>FF IDs</th><th>Status</th><th>Actions</th></tr>";
+      snap.forEach(d=>{
+        const r={id:d.id,...d.data()};
+        html+=`<tr>
+          <td>${r.team}</td><td>${r.phone}</td><td>${r.utr}</td><td>${(r.ff||[]).join(",")}</td>
+          <td>${r.status}</td>
+          <td><button class="btn approve" onclick="approve('${r.id}')">Approve</button>
+              <button class="btn reject" onclick="reject('${r.id}')">Reject</button></td>
+        </tr>`;
+      });
+      html+="</table>";
+      $("regList").innerHTML=html;
+    }
+    $("adminSel").onchange=loadRegs;
+
+    window.approve=async id=>{await updateDoc(doc(db,"registrations",id),{status:"approved"});loadRegs()};
+    window.reject=async id=>{await updateDoc(doc(db,"registrations",id),{status:"rejected"});loadRegs()};
+  </script>
 </body>
 </html>
