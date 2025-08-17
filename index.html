@@ -98,39 +98,73 @@
     <!-- APP -->
     <div id="app" class="hidden">
       <div class="row">
-        <!-- ADMIN: create/edit/delete/open-close -->
-        <div class="col card" id="adminCard" class="hidden">
-          <h2>Admin — Create / Edit Tournament</h2>
-          <p class="muted">Sirf admin ko yeh section dikhega.</p>
-          <label>Name</label><input id="tName" placeholder="Sunday Clash"/>
-          <label>Date & Time</label><input id="tDate" type="datetime-local"/>
-          <label>Mode</label>
-          <select id="tMode">
-            <option value="solo">Solo (1)</option>
-            <option value="duo">Duo (2)</option>
-            <option value="squad">Squad (4)</option>
-          </select>
-          <label>Team Slots (Solo=players, Duo=duos, Squad=squads)</label>
-          <input id="tSlots" type="number" min="1" value="12"/>
-          <label>Entry Fee per Player (₹)</label>
-          <input id="tFee" type="number" min="1" value="20"/>
-          <div class="btn-row" style="margin-top:10px">
-            <button id="btnSaveT">Save</button>
-            <button id="btnResetT" class="btn-ghost">Reset</button>
-          </div>
-          <div id="adminMsg" class="muted" style="margin-top:8px"></div>
+        <div class="container">
 
-          <h2 style="margin-top:16px">All Tournaments (Admin)</h2>
-          <table id="tTable">
-            <thead><tr><th>Name</th><th>Date</th><th>Mode</th><th>Slots</th><th>Regd</th><th>Status</th><th>Actions</th></tr></thead>
-            <tbody></tbody>
-          </table>
+  <!-- Admin Panel -->
+  <section id="adminCard" class="card hidden">
+    <h2>🎮 Admin Panel</h2>
+    <p class="muted">Yaha se tournaments create, edit aur registrations approve/reject karo.</p>
 
-          <h3 style="margin-top:16px">Registrations (per tournament)</h3>
-          <label>Pick tournament</label>
-          <select id="adminSel"></select>
-          <div id="adminRegBox" style="margin-top:10px">—</div>
-        </div>
+    <!-- Tournament Create/Edit -->
+    <div class="admin-box">
+      <h3>Create / Edit Tournament</h3>
+      <label>Tournament Name</label>
+      <input id="tName" placeholder="Sunday Clash"/>
+      <label>Date & Time</label>
+      <input id="tDate" type="datetime-local"/>
+      <label>Mode</label>
+      <select id="tMode">
+        <option value="solo">Solo (1)</option>
+        <option value="duo">Duo (2)</option>
+        <option value="squad">Squad (4)</option>
+      </select>
+      <label>Slots</label>
+      <input id="tSlots" type="number" min="1" value="12"/>
+      <label>Entry Fee (₹)</label>
+      <input id="tFee" type="number" min="1" value="20"/>
+      <div class="btn-row">
+        <button id="btnSaveT" class="btn-primary">Save Tournament</button>
+        <button id="btnResetT" class="btn-ghost">Reset</button>
+      </div>
+    </div>
+
+    <!-- All Tournaments List -->
+    <h3 style="margin-top:20px">📋 All Tournaments</h3>
+    <table id="tTable">
+      <thead>
+        <tr>
+          <th>Name</th><th>Date</th><th>Mode</th>
+          <th>Slots</th><th>Registered</th><th>Status</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- Registrations -->
+    <h3 style="margin-top:20px">👥 Registrations (per tournament)</h3>
+    <label>Select Tournament</label>
+    <select id="adminSel"></select>
+    <div id="adminRegBox" style="margin-top:10px">
+      <table id="adminRegTable">
+        <thead>
+          <tr>
+            <th>Team / Player</th><th>Phone</th><th>FF IDs</th>
+            <th>Amount</th><th>UTR</th><th>Status</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- User Registration Section -->
+  <section id="userRegBox" class="card hidden" style="margin-top:30px;">
+    <h2>📝 Register for Tournament</h2>
+    <p class="muted">Tournament join karne ke liye details fill karo aur UTR upload karo.</p>
+    <!-- yaha pe tera existing user registration form rahega -->
+  </section>
+
+</div>
 
         <!-- USER: register -->
         <div class="col card">
@@ -511,3 +545,4 @@
 </script>
 </body>
 </html>
+
